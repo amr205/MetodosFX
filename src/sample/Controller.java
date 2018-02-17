@@ -36,7 +36,7 @@ public class Controller implements Initializable {
 
     @FXML
     protected void showInfo(){
-        System.out.println("\n" +
+        String content =
                 "BUILT IN OPERATORS: \n" +
                         "    Addition: 2 + 2\n" +
                         "    Subtraction: 2 - 2\n" +
@@ -44,7 +44,7 @@ public class Controller implements Initializable {
                         "    Division: 2 / 2\n" +
                         "    Exponentation: 2 ^ 2\n" +
                         "    Unary Minus,Plus (Sign Operators): +2 - (-2)\n" +
-                        "    Modulo: 2 % 2\n"+
+                        "    Modulo: 2 % 2\n\n"+
                 "BUILT IN FUNCTIONS: \n" +
                 "    abs: absolute value\n" +
                 "    acos: arc cosine\n" +
@@ -64,11 +64,39 @@ public class Controller implements Initializable {
                 "    sqrt: square root\n" +
                 "    tan: tangent\n" +
                 "    tanh: hyperbolic tangent\n" +
-                "    signum: signum function");
+                "    signum: signum function";
+
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("How to enter a equation");
+        info.setHeaderText("Use the follow operators and functions: \n" +
+                "Example: log(x)*sin(x)+(1/3)x");
+        info.setContentText(content);
+        info.show();
     }
 
     @FXML
     protected void calculateResult(){
+        drawFunction();
+
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        lineChart.setTitle("Please insert input");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Graphic");
+        //populating the series with data
+        series.getData().add(new XYChart.Data(1, 0));
+
+        series.getData().add(new XYChart.Data(12, 5));
+
+        lineChart.getData().add(series);
+    }
+
+    protected void drawFunction(){
         Expression expression;
         float drawS, drawE;
         drawS =0;
@@ -120,39 +148,5 @@ public class Controller implements Initializable {
         }catch (Exception e){
 
         }
-
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(equationField.getText()+":)");
-
-
-        lineChart.setTitle("Test charting");
-        //defining a series
-        XYChart.Series series = new XYChart.Series();
-        series.setName("My Test Data");
-        //populating the series with data
-        series.getData().add(new XYChart.Data(1, 23));
-        series.getData().add(new XYChart.Data(2, 14));
-        series.getData().add(new XYChart.Data(3, 15));
-        series.getData().add(new XYChart.Data(4, 24));
-        series.getData().add(new XYChart.Data(5, 34));
-        series.getData().add(new XYChart.Data(6, 36));
-        series.getData().add(new XYChart.Data(7, 22));
-        series.getData().add(new XYChart.Data(8, 45));
-        series.getData().add(new XYChart.Data(9, 43));
-        series.getData().add(new XYChart.Data(10, 17));
-        series.getData().add(new XYChart.Data(11, 29));
-        series.getData().add(new XYChart.Data(12, 25));
-
-        lineChart.getData().add(series);
-
-
-
-
-
-
     }
 }
