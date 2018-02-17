@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -51,7 +50,12 @@
                     </VBox.margin>
                     <Label prefHeight="16.0" prefWidth="80.0" text="Equation" />
                     <Label prefHeight="16.0" prefWidth="79.0" text="Method" GridPane.rowIndex="1" />
-                    <TextField fx:id="equationField" GridPane.columnIndex="1" />
+               <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
+                  <children>
+                     <Label text="y=" />
+                          <TextField fx:id="equationField" />
+                  </children>
+               </HBox>
                     <ComboBox fx:id="methodBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Label prefHeight="16.0" prefWidth="79.0" text="Draw from:" GridPane.columnIndex="2" />
                     <Label text="Solve from:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -66,16 +70,17 @@
                         <TextField fx:id="solveEnd" />
                     </HBox>
                 </GridPane>
-                <HBox alignment="TOP_RIGHT">
+                <HBox alignment="TOP_RIGHT" spacing="12.0">
                     <VBox.margin>
                         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                     </VBox.margin>
+               <Button onAction="#showInfo" fx:id="howBtn" mnemonicParsing="false" text="How to enter equation" />
                     <Button fx:id="calculateBtn" alignment="CENTER_RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#calculateResult" text="Calculate" textAlignment="JUSTIFY" />
                 </HBox>
             </VBox>
-            <LineChart fx:id="lineChart" prefHeight="402.0" prefWidth="606.0">
+            <LineChart fx:id="lineChart" createSymbols="false" prefHeight="402.0" prefWidth="606.0">
                 <xAxis>
-                    <CategoryAxis side="BOTTOM" />
+                    <NumberAxis side="BOTTOM" />
                 </xAxis>
                 <yAxis>
                     <NumberAxis side="LEFT" />
