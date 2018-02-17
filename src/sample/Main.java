@@ -15,9 +15,9 @@ public class Main extends Application {
                 setVariable("x",15).setVariable("y",6).evaluate();
 
 
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("sample1.fxml"));
         primaryStage.setTitle("Hello World "+result);
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1200, 800));
         primaryStage.show();
     }
 
