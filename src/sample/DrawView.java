@@ -2,7 +2,9 @@ package sample;
 
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -21,46 +23,66 @@ public class DrawView {
         try{
             expression = new ExpressionBuilder(equationField.getText()).variable("x").build();
         }catch (Exception e){
-            System.out.println("incorrect input in equation");
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error Wrong Input");
+            error.setHeaderText("The equation is not valid");
+            error.setContentText("Check you are using x as variable (not X)\nMore info in: How to enter equation");
+            error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            error.show();
+
             isCorrect = false;
         }
-        try{
+
+
+
+        try {
             drawS = Float.parseFloat(drawStart.getText());
             drawE = Float.parseFloat(drawEnd.getText());
 
-            if(drawE<=drawS){
-                System.out.println("drawE needs to be higher than drawS");
-                isCorrect=false;
+            if (drawE <= drawS) {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setTitle("Error Wrong Input");
+                error.setHeaderText("Please correct the following");
+                error.setContentText("Starting point of the graphic needs to be lower than final point");
+                error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                error.show();
+                isCorrect = false;
             }
-        }catch (Exception e){
-            System.out.println("incorrect input in drawing range");
+        } catch (Exception e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error Wrong Input");
+            error.setHeaderText("Please correct the following");
+            error.setContentText("Incorrect input in range of the graphic, check you are entering only numbers");
+            error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            error.show();
             isCorrect = false;
         }
 
-        try{
-            if(isCorrect){
+        try {
+            if (isCorrect) {
                 lineChart.getData().remove(0);
                 lineChart.setTitle(equationField.getText());
                 //defining a series
                 XYChart.Series series = new XYChart.Series();
                 series.setName("Graphic");
                 //populating the series with data
-                for(float i= drawS ; i<= drawE ;i+=0.05){
+                for (float i = drawS; i <= drawE; i += 0.05) {
                     try {
-                        float y = (float)expression.setVariable("x", i).evaluate();
-                        if(!Float.isNaN(y)) {
+                        float y = (float) expression.setVariable("x", i).evaluate();
+                        if (!Float.isNaN(y)) {
                             series.getData().add(new XYChart.Data(i, y));
 
                         }
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                 }
                 lineChart.getData().add(series);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
+
     }
 }
