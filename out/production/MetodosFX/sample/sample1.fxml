@@ -80,10 +80,10 @@
             </VBox>
             <LineChart fx:id="lineChart" createSymbols="false" prefHeight="402.0" prefWidth="606.0">
                 <xAxis>
-                    <NumberAxis side="BOTTOM" />
+                    <NumberAxis side="BOTTOM" forceZeroInRange="false"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis side="LEFT" />
+                    <NumberAxis side="LEFT" forceZeroInRange="false"/>
                 </yAxis>
             </LineChart>
             <HBox alignment="CENTER_LEFT" spacing="12.0">
