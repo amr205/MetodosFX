@@ -81,7 +81,7 @@ public class DrawView {
                 lineChart.getData().add(series);
             }
         } catch (Exception e) {
-
+            //error
         }
 
     }
