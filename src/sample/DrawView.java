@@ -60,18 +60,30 @@ public class DrawView {
 
         try {
             if (isCorrect) {
+                float inc = 0.1f;
+                if(drawE-drawS>100)
+                    inc = (drawE-drawS)/500;
+                if(drawE-drawS<10)
+                    inc = 0.01f;
+                if(drawE-drawS<.5f)
+                    inc = 0.001f;
+                if(drawE-drawS<.05f)
+                    inc = (drawE-drawS)/500;
+
+
+                System.out.println(inc);
                 lineChart.getData().remove(0);
                 lineChart.setTitle(equationField.getText());
                 //defining a series
                 XYChart.Series series = new XYChart.Series();
                 series.setName("Graphic");
                 //populating the series with data
-                for (float i = drawS; i <= drawE; i += 0.05) {
+                for (float i = drawS; i <= drawE; i += inc) {
                     try {
                         float y = (float) expression.setVariable("x", i).evaluate();
-                        if (!Float.isNaN(y)) {
+                        if (!Float.isNaN(y)&&!Float.isInfinite(y)) {
                             series.getData().add(new XYChart.Data(i, y));
-
+                            System.out.println(i);
                         }
 
                     } catch (Exception e) {
