@@ -30,9 +30,9 @@ public class DrawView {
             error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             error.show();
 
-            isCorrect = false;
-        }
 
+            return;
+        }
 
 
         try {

@@ -17,6 +17,9 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
+    ScrollPane scroll;
+    
+    @FXML
     TextField equationField, drawStart, drawEnd, solveStart, solveEnd;
 
     @FXML
