@@ -10,6 +10,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import sample.Methods.Biseccion;
+import sample.Methods.tableMethod;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -80,7 +82,7 @@ public class Controller implements Initializable {
     @FXML
     protected void calculateResult(){
         DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
-
+        UseMethod.calculateResult(methodTable,resultLabel,equationField,solveStart,solveEnd,methodBox);
 
 
 
@@ -100,6 +102,12 @@ public class Controller implements Initializable {
         series.getData().add(new XYChart.Data(12, 5));
 
         lineChart.getData().add(series);
+
+        ObservableList<tableMethod> options =
+                FXCollections.observableArrayList(
+                        new Biseccion()
+                );
+        methodBox.setItems(options);
     }
 
 }
