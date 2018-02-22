@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     @FXML
     ScrollPane scroll;
-    
+
     @FXML
     TextField equationField, drawStart, drawEnd, solveStart, solveEnd;
 
@@ -37,7 +38,7 @@ public class Controller implements Initializable {
     TableView methodTable;
 
     @FXML
-    Button calculateBtn, howBtn;
+    Button calculateBtn, howBtn, drawBtn;
 
     @FXML
     protected void showInfo(){
@@ -108,6 +109,14 @@ public class Controller implements Initializable {
                         new Biseccion()
                 );
         methodBox.setItems(options);
+
+
+        methodBox.getSelectionModel().selectFirst();
+
+
     }
 
+    public void DrawEquation(ActionEvent actionEvent) {
+        DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
+    }
 }
