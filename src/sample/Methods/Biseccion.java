@@ -93,4 +93,10 @@ public class Biseccion extends tableMethod {
         resultado=xr;
         return  resultado;
     }
+
+    @Override
+    public String toString(){
+        //return "Bisección";
+        return "Bisection";
+    }
 }
