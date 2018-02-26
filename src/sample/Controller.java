@@ -56,26 +56,26 @@ public class Controller implements Initializable {
                         "    Exponentation: 2 ^ 2\n" +
                         "    Unary Minus,Plus (Sign Operators): +2 - (-2)\n" +
                         "    Modulo: 2 % 2\n\n"+
-                "BUILT IN FUNCTIONS: \n" +
-                "    abs: absolute value\n" +
-                "    acos: arc cosine\n" +
-                "    asin: arc sine\n" +
-                "    atan: arc tangent\n" +
-                "    cbrt: cubic root\n" +
-                "    ceil: nearest upper integer\n" +
-                "    cos: cosine\n" +
-                "    cosh: hyperbolic cosine\n" +
-                "    exp: euler's number raised to the power (e^x)\n" +
-                "    floor: nearest lower integer\n" +
-                "    log: logarithmus naturalis (base e)\n" +
-                "    log10: logarithm (base 10)\n" +
-                "    log2: logarithm (base 2)\n" +
-                "    sin: sine\n" +
-                "    sinh: hyperbolic sine\n" +
-                "    sqrt: square root\n" +
-                "    tan: tangent\n" +
-                "    tanh: hyperbolic tangent\n" +
-                "    signum: signum function";
+                        "BUILT IN FUNCTIONS: \n" +
+                        "    abs: absolute value\n" +
+                        "    acos: arc cosine\n" +
+                        "    asin: arc sine\n" +
+                        "    atan: arc tangent\n" +
+                        "    cbrt: cubic root\n" +
+                        "    ceil: nearest upper integer\n" +
+                        "    cos: cosine\n" +
+                        "    cosh: hyperbolic cosine\n" +
+                        "    exp: euler's number raised to the power (e^x)\n" +
+                        "    floor: nearest lower integer\n" +
+                        "    log: logarithmus naturalis (base e)\n" +
+                        "    log10: logarithm (base 10)\n" +
+                        "    log2: logarithm (base 2)\n" +
+                        "    sin: sine\n" +
+                        "    sinh: hyperbolic sine\n" +
+                        "    sqrt: square root\n" +
+                        "    tan: tangent\n" +
+                        "    tanh: hyperbolic tangent\n" +
+                        "    signum: signum function";
 
         Alert info = new Alert(Alert.AlertType.INFORMATION);
         info.setTitle("How to enter a equation");
