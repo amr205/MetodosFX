@@ -2,14 +2,19 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import sample.Methods.Biseccion;
+import sample.Methods.FalseRule;
+import sample.Methods.tableMethod;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,10 +22,13 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     @FXML
-    ScrollPane scroll;
-    
+    SplitPane splitPane;
+
     @FXML
-    TextField equationField, drawStart, drawEnd, solveStart, solveEnd;
+    AnchorPane leftPane;
+
+    @FXML
+    TextField equationField, drawStart, drawEnd, solveStart, solveEnd,errorField;
 
     @FXML
     ComboBox methodBox;
@@ -48,26 +56,26 @@ public class Controller implements Initializable {
                         "    Exponentation: 2 ^ 2\n" +
                         "    Unary Minus,Plus (Sign Operators): +2 - (-2)\n" +
                         "    Modulo: 2 % 2\n\n"+
-                "BUILT IN FUNCTIONS: \n" +
-                "    abs: absolute value\n" +
-                "    acos: arc cosine\n" +
-                "    asin: arc sine\n" +
-                "    atan: arc tangent\n" +
-                "    cbrt: cubic root\n" +
-                "    ceil: nearest upper integer\n" +
-                "    cos: cosine\n" +
-                "    cosh: hyperbolic cosine\n" +
-                "    exp: euler's number raised to the power (e^x)\n" +
-                "    floor: nearest lower integer\n" +
-                "    log: logarithmus naturalis (base e)\n" +
-                "    log10: logarithm (base 10)\n" +
-                "    log2: logarithm (base 2)\n" +
-                "    sin: sine\n" +
-                "    sinh: hyperbolic sine\n" +
-                "    sqrt: square root\n" +
-                "    tan: tangent\n" +
-                "    tanh: hyperbolic tangent\n" +
-                "    signum: signum function";
+                        "BUILT IN FUNCTIONS: \n" +
+                        "    abs: absolute value\n" +
+                        "    acos: arc cosine\n" +
+                        "    asin: arc sine\n" +
+                        "    atan: arc tangent\n" +
+                        "    cbrt: cubic root\n" +
+                        "    ceil: nearest upper integer\n" +
+                        "    cos: cosine\n" +
+                        "    cosh: hyperbolic cosine\n" +
+                        "    exp: euler's number raised to the power (e^x)\n" +
+                        "    floor: nearest lower integer\n" +
+                        "    log: logarithmus naturalis (base e)\n" +
+                        "    log10: logarithm (base 10)\n" +
+                        "    log2: logarithm (base 2)\n" +
+                        "    sin: sine\n" +
+                        "    sinh: hyperbolic sine\n" +
+                        "    sqrt: square root\n" +
+                        "    tan: tangent\n" +
+                        "    tanh: hyperbolic tangent\n" +
+                        "    signum: signum function";
 
         Alert info = new Alert(Alert.AlertType.INFORMATION);
         info.setTitle("How to enter a equation");
@@ -80,8 +88,7 @@ public class Controller implements Initializable {
     @FXML
     protected void calculateResult(){
         DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
-
-
+        UseMethod.calculateResult(methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox);
 
 
     }
@@ -100,6 +107,21 @@ public class Controller implements Initializable {
         series.getData().add(new XYChart.Data(12, 5));
 
         lineChart.getData().add(series);
+
+        ObservableList<tableMethod> options =
+                FXCollections.observableArrayList(
+                        new Biseccion(),
+                        new FalseRule()
+                );
+        methodBox.setItems(options);
+
+        methodBox.getSelectionModel().selectFirst();
+
+        leftPane.maxWidthProperty().bind(splitPane.widthProperty().multiply(0.5));
+        leftPane.minWidthProperty().bind(splitPane.widthProperty().multiply(0.01));
     }
 
+    public void draw(ActionEvent actionEvent) {
+        DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
+    }
 }

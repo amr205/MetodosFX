@@ -51,12 +51,12 @@
                     </VBox.margin>
                     <Label prefHeight="16.0" prefWidth="80.0" text="Equation" />
                     <Label prefHeight="16.0" prefWidth="79.0" text="Method" GridPane.rowIndex="1" />
-                    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
-                        <children>
-                            <Label text="y=" />
-                            <TextField fx:id="equationField" />
-                        </children>
-                    </HBox>
+               <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
+                  <children>
+                     <Label text="y=" />
+                          <TextField fx:id="equationField" />
+                  </children>
+               </HBox>
                     <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="3">
                         <ComboBox fx:id="methodBox"  prefWidth="150" />
                         <Label text="e%" textAlignment="CENTER" alignment="CENTER" prefWidth="100"/>
@@ -81,7 +81,7 @@
                         <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                     </VBox.margin>
                     <Button onAction="#showInfo" fx:id="howBtn" mnemonicParsing="false" text="How to enter equation" />
-                    <Button onAction="#draw" fx:id="drawBtn" mnemonicParsing="false" text="Draw" />
+                    <Button onAction="#DrawEquation" fx:id="drawBtn" mnemonicParsing="false" text="Draw" />
                     <Button fx:id="calculateBtn" alignment="CENTER_RIGHT" defaultButton="true" mnemonicParsing="false" onAction="#calculateResult" text="Calculate" textAlignment="JUSTIFY" />
                 </HBox>
             </VBox>
@@ -107,14 +107,13 @@
         </VBox>
     </AnchorPane>
     <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-        <TableView fx:id="methodTable" prefHeight="862.0" AnchorPane.topAnchor="12.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" >
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-            <columns>
+            <TableView fx:id="methodTable" prefHeight="862.0" AnchorPane.topAnchor="12.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" >
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+                <columns>
 
-            </columns>
-        </TableView>
+                </columns>
+            </TableView>
     </AnchorPane>
 </SplitPane>
-
