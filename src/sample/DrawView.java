@@ -71,7 +71,7 @@ public class DrawView {
                     inc = (drawE-drawS)/500;
 
 
-                System.out.println(inc);
+
                 lineChart.getData().remove(0);
                 lineChart.setTitle(equationField.getText());
                 //defining a series
@@ -83,7 +83,7 @@ public class DrawView {
                         float y = (float) expression.setVariable("x", i).evaluate();
                         if (!Float.isNaN(y)&&!Float.isInfinite(y)) {
                             series.getData().add(new XYChart.Data(i, y));
-                            System.out.println(i);
+
                         }
 
                     } catch (Exception e) {

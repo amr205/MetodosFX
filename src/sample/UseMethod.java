@@ -11,9 +11,11 @@ import sample.Methods.MethodModel.Person;
 import sample.Methods.tableMethod;
 
 import javax.swing.text.TabableView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UseMethod {
-    public static void calculateResult(TableView table, Label resultLabel, TextField equationField, TextField solveStart, TextField solveEnd, TextField solveError, ComboBox methodBox){
+    public static void calculateResult(TableView table, Label resultLabel, TextField equationField, TextField solveStart, TextField solveEnd, TextField solveError, ComboBox methodBox, ArrayList<Object> list){
         tableMethod method = (tableMethod)methodBox.getValue();
         boolean isCorrect = true;
         float initA, initB, errorP;
@@ -30,7 +32,7 @@ public class UseMethod {
             if(!solveError.getText().isEmpty()||!solveError.getText().equals(""))
                 errorP = Float.parseFloat(solveError.getText());
 
-            if(initB<=initA){
+            if(initB<=initA&&!solveStart.isDisable()&&!solveEnd.isDisable()){
                 isCorrect=false;
 
                 Alert error = new Alert(Alert.AlertType.ERROR);
@@ -52,7 +54,7 @@ public class UseMethod {
 
         if(isCorrect){
             method.initializeColumns(table);
-            float result = method.doMethod(table, initA, initB, errorP,equationField.getText());
+            float result = method.doMethod(table, initA, initB, errorP,equationField.getText(),list);
             resultLabel.setText(String.format("%.6f", result)+"");
         }
     }

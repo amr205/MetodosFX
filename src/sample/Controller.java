@@ -1,6 +1,9 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,17 +13,32 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import sample.Methods.Biseccion;
 import sample.Methods.FalseRule;
+import sample.Methods.PuntoFijo;
 import sample.Methods.tableMethod;
 
 import java.net.URL;
+import java.util.ArrayList;
+
 import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable {
+
+    ArrayList<Object> optionalObjects;
+
+    @FXML
+    VBox optionalFields;
+
+    @FXML
+    GridPane gridPane;
+
     @FXML
     SplitPane splitPane;
 
@@ -88,7 +106,7 @@ public class Controller implements Initializable {
     @FXML
     protected void calculateResult(){
         DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
-        UseMethod.calculateResult(methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox);
+        UseMethod.calculateResult(methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox,optionalObjects);
 
 
     }
@@ -96,6 +114,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        optionalObjects = new ArrayList<Object>();
 
         lineChart.setTitle("Please insert input");
         //defining a series
@@ -111,11 +130,41 @@ public class Controller implements Initializable {
         ObservableList<tableMethod> options =
                 FXCollections.observableArrayList(
                         new Biseccion(),
-                        new FalseRule()
+                        new FalseRule(),
+                        new PuntoFijo()
                 );
         methodBox.setItems(options);
 
         methodBox.getSelectionModel().selectFirst();
+
+        methodBox.valueProperty().addListener(new ChangeListener<tableMethod>() {
+            @Override public void changed(ObservableValue value, tableMethod old, tableMethod newO) {
+                //Show your scene here
+                solveEnd.setDisable(false);
+                optionalObjects.clear();
+
+                if(newO.getClass()==Biseccion.class){
+                    optionalFields.getChildren().clear();
+
+                }
+                else if(newO.getClass()==FalseRule.class){
+                    optionalFields.getChildren().clear();
+
+                }
+                else if(newO.getClass()==PuntoFijo.class){
+                    solveEnd.setText("");
+                    solveEnd.setDisable(true);
+                    optionalFields.getChildren().clear();
+                    HBox hBox = new HBox();
+                    hBox.setSpacing(15);
+                    hBox.getChildren().add(new Label("Introduce el despeje"));
+                    TextField textField = new TextField();
+                    optionalObjects.add(textField);
+                    hBox.getChildren().add(textField);
+                    optionalFields.getChildren().add(hBox);
+                }
+            }
+        });
 
         leftPane.maxWidthProperty().bind(splitPane.widthProperty().multiply(0.5));
         leftPane.minWidthProperty().bind(splitPane.widthProperty().multiply(0.01));

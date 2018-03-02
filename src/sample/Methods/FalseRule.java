@@ -6,15 +6,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import net.objecthunter.exp4j.ExpressionBuilder;
-import sample.Methods.tableMethod;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import net.objecthunter.exp4j.ExpressionBuilder;
 import sample.Methods.MethodModel.BiseccionModel;
+import sample.Methods.MethodModel.Person;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class FalseRule extends tableMethod {
     @Override
@@ -51,38 +47,46 @@ public class FalseRule extends tableMethod {
     }
 
     @Override
-    public float doMethod(TableView table, float aInicial, float bInicial, float errorP, String ecuacion) {
+    public float doMethod(TableView table, float aInicial, float bInicial, float errorP, String ecuacion, ArrayList<Object> list) {
         final ObservableList<BiseccionModel> data = FXCollections.observableArrayList();
 
-        float a, b, fa, fb, fxr, xr, xrAnt, error, resultado;
+        BigDecimal a, b, fa, fb, fxr, xr, xrAnt, error, resultado;
+        Double xrDoble;
         int n;
         n=1;
-        error = 20;
-        a=aInicial;
-        b=bInicial;
-        xr = (a+b)/2;
+        error = new BigDecimal(20).setScale(6, BigDecimal.ROUND_HALF_UP);
+        a=new BigDecimal(aInicial).setScale(6, BigDecimal.ROUND_HALF_UP);
+        b=new BigDecimal(bInicial).setScale(6, BigDecimal.ROUND_HALF_UP);
+
+        xr = (a.add(b)).divide(new BigDecimal(2).setScale(6,BigDecimal.ROUND_HALF_UP));
 
         do{
 
-            fa = (float)(new ExpressionBuilder(ecuacion).variable("x").build().
-                    setVariable("x",a).evaluate());
-            fb = (float)(new ExpressionBuilder(ecuacion).variable("x").build().
-                    setVariable("x",b).evaluate());
+            double faDouble = new ExpressionBuilder(ecuacion).variable("x").build().
+                    setVariable("x",a.doubleValue()).evaluate();
+            double fbDouble = new ExpressionBuilder(ecuacion).variable("x").build().
+                    setVariable("x",b.doubleValue()).evaluate();
+
+            fa = new BigDecimal(faDouble).setScale(6, BigDecimal.ROUND_HALF_UP);
+            fb = new BigDecimal(fbDouble).setScale(6, BigDecimal.ROUND_HALF_UP);
+
             xrAnt = xr;
-            xr = b-(fb*(a-b)/(fa-fb));
 
-            fxr = (float)(new ExpressionBuilder(ecuacion).variable("x").build().
-                    setVariable("x",xr).evaluate());
+            xrDoble = b.doubleValue()-((fb.doubleValue()*(a.doubleValue()-b.doubleValue()))/(fa.doubleValue()-fb.doubleValue()));
+            xr =  new BigDecimal(xrDoble).setScale(6, BigDecimal.ROUND_HALF_UP);
 
-            if(fxr*fa==0)
-                error=0;
-            else if(fxr*fa>0)
-                a=xr;
-            else
-                b=xr;
+            double fxrDouble = new ExpressionBuilder(ecuacion).variable("x").build().
+                    setVariable("x",xr.doubleValue()).evaluate();
+
+            fxr = new BigDecimal(fxrDouble).setScale(6, BigDecimal.ROUND_HALF_UP);
+
 
             if(n!=1) {
-                error = Math.abs((xr - xrAnt) / xr * 100);
+                //error = ((xr.subtract(xrAnt))).divide(xr,6,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100).setScale(6, BigDecimal.ROUND_HALF_UP)).abs();
+
+                double errorDouble = Math.abs((xr.doubleValue()-xrAnt.doubleValue())/xr.doubleValue()*100);
+                error = new BigDecimal(errorDouble).setScale(6,BigDecimal.ROUND_HALF_UP);
+
                 data.add(new BiseccionModel(Integer.toString(n),String.format("%.6f", a),String.format("%.6f", b),String.format("%.6f", fa),
                         String.format("%.6f", fb), String.format("%.6f", xr), String.format("%.6f", fxr), String.format("%.6f", error)));
             }
@@ -92,19 +96,27 @@ public class FalseRule extends tableMethod {
                         String.format("%.6f", fb), String.format("%.6f", xr), String.format("%.6f", fxr), "--------"));
             }
 
+            if(fxr.floatValue()*fa.floatValue()==0)
+                error=new BigDecimal(0).setScale(6, BigDecimal.ROUND_HALF_UP);
+            else if(fxr.floatValue()*fa.floatValue()>0)
+                a=xr;
+            else
+                b=xr;
+
+
+
             n++;
-        }while(error>errorP);
+        }while(error.floatValue()>errorP);
 
         table.setItems(data);
 
         resultado=xr;
-        return  resultado;
+        return  resultado.floatValue();
     }
 
     @Override
     public String toString(){
         //return "Bisección";
-        return "False position";
+        return "False Rule";
     }
 }
-
