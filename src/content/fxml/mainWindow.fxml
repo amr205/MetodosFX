@@ -27,10 +27,18 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="content.controller.MainController">
     <top>
         <MenuBar>
-            <Menu>
-                <MenuItem>
-
-                </MenuItem>
+            <Menu fx:id="fileMenu" text="File">
+                <MenuItem text="New" onAction="#reset" fx:id="newFileMenuItem"/>
+                <MenuItem text="Exit" onAction="#close" fx:id="closeMenuItem"/>
+            </Menu>
+            <Menu fx:id="languageMenu" text="Language">
+                <MenuItem text="English" onAction="#changeLanguage" fx:id="englishMenuItem"/>
+                <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="spanishMenuItem"/>
+            </Menu>
+            <Menu fx:id="styleMenu" text="Language">
+                <MenuItem text="English" onAction="#changeLanguage" fx:id="defaultThemeMenuItem"/>
+                <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="darkThemeMenuItem"/>
+                <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="lightThemeMenuItem"/>
             </Menu>
         </MenuBar>
     </top>
@@ -47,7 +55,7 @@
                             <padding>
                                 <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                             </padding>
-                            <Label prefHeight="16.0" prefWidth="89.0" text="Input">
+                            <Label fx:id="inputLabel" prefHeight="16.0" prefWidth="89.0" text="Input">
                                 <VBox.margin>
                                     <Insets left="12.0" />
                                 </VBox.margin>
@@ -66,8 +74,8 @@
                                 <VBox.margin>
                                     <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                                 </VBox.margin>
-                                <Label prefHeight="16.0" prefWidth="80.0" text="Equation" />
-                                <Label prefHeight="16.0" prefWidth="79.0" text="Method" GridPane.rowIndex="1" />
+                                <Label fx:id="equationLabel" prefHeight="16.0" prefWidth="80.0" text="Equation" />
+                                <Label fx:id="methodLabel" prefHeight="16.0" prefWidth="79.0" text="Method" GridPane.rowIndex="1" />
                                 <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
                                     <children>
                                         <Label text="y=" />
@@ -80,16 +88,16 @@
                                     <TextField fx:id="errorField" prefWidth="100"/>
                                 </HBox>
 
-                                <Label prefHeight="16.0" prefWidth="79.0" text="Draw from:" GridPane.columnIndex="2" />
-                                <Label text="Solve from:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <Label fx:id="drawFromLabel" prefHeight="16.0" prefWidth="79.0" text="Draw from:" GridPane.columnIndex="2" />
+                                <Label fx:id="solveFromLabel" text="Solve from:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="3">
                                     <TextField fx:id="drawStart" />
-                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" text="to" />
+                                    <Label fx:id="toDrawLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" text="to" />
                                     <TextField fx:id="drawEnd" />
                                 </HBox>
                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                     <TextField fx:id="solveStart" />
-                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" text="to" />
+                                    <Label  fx:id="toSolveLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="16.0" text="to" />
                                     <TextField fx:id="solveEnd" />
                                 </HBox>
                                 <VBox fx:id="optionalFields" GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="2">
@@ -117,7 +125,7 @@
                             <padding>
                                 <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                             </padding>
-                            <Label text="Result:" />
+                            <Label fx:id="resultLabelText" text="Result:" />
                             <Label fx:id="resultLabel" prefHeight="16.0" prefWidth="128.0">
                                 <font>
                                     <Font size="19.0" />

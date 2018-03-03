@@ -1,7 +1,9 @@
 package content.controller;
 
 import content.Utilities.DrawView;
+import content.Utilities.ObservableResourceFactory;
 import content.Utilities.UseMethod;
+import content.resources.lang.Resources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -24,6 +25,8 @@ import content.methods.TableMethod;
 import java.net.URL;
 import java.util.ArrayList;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -53,7 +56,7 @@ public class MainController implements Initializable {
     ComboBox<TableMethod> methodBox;
 
     @FXML
-    Label resultLabel;
+    Label resultLabel, resultLabelText,toSolveLabel, toDrawLabel, solveFromLabel, drawFromLabel, methodLabel, equationLabel, inputLabel;
 
     @FXML
     LineChart lineChart;
@@ -63,6 +66,18 @@ public class MainController implements Initializable {
 
     @FXML
     Button calculateBtn, howBtn;
+
+    @FXML
+    MenuItem spanishMenuItem, englishMenuItem, closeMenuItem, newFileMenuItem, defaultThemeMenuItem, darkThemeMenuItem, lightThemeMenuItem;
+
+    @FXML
+    Menu fileMenu, languageMenu, styleMenu;
+
+
+    private final String RESOURCE_NAME = Resources.class.getTypeName() ;
+
+    private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
+
 
     @FXML
     protected void showInfo(){
@@ -118,6 +133,16 @@ public class MainController implements Initializable {
         //create list for optional objects for different methods
         optionalObjects = new ArrayList<Object>();
 
+
+        ObservableList<TableMethod> options =
+                FXCollections.observableArrayList(
+                        new Biseccion(),
+                        new FalseRule(),
+                        new PuntoFijo()
+                );
+        methodBox.setItems(options);
+
+
         reset();
 
         methodBox.valueProperty().addListener(new ChangeListener<TableMethod>() {
@@ -168,13 +193,7 @@ public class MainController implements Initializable {
 
         lineChart.getData().clear();
 
-        ObservableList<TableMethod> options =
-                FXCollections.observableArrayList(
-                        new Biseccion(),
-                        new FalseRule(),
-                        new PuntoFijo()
-                );
-        methodBox.setItems(options);
+        methodTable.getColumns().clear();
 
         methodBox.getSelectionModel().selectFirst();
 
@@ -186,5 +205,53 @@ public class MainController implements Initializable {
         errorField.setText("");
 
         solveEnd.setDisable(false);
+
+        bindText();
+    }
+
+    private void bindText(){
+
+        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
+
+        resultLabelText.textProperty().bind(RESOURCE_FACTORY.getStringBinding("resultLabelText"));
+        toSolveLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("toSolveLabel"));
+        toDrawLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("toDrawLabel"));
+        solveFromLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("solveFromLabel"));
+        drawFromLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("drawFromLabel"));
+        methodLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("methodLabel"));
+        equationLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("equationLabel"));
+        inputLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("inputLabel"));
+
+        spanishMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("spanishMenuItem"));
+        englishMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("englishMenuItem"));
+        closeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("closeMenuItem"));
+        newFileMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("newFileMenuItem"));
+        defaultThemeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("defaultThemeMenuItem"));
+        darkThemeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("darkThemeMenuItem"));
+        lightThemeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("lightThemeMenuItem"));
+
+        fileMenu.textProperty().bind(RESOURCE_FACTORY.getStringBinding("fileMenu"));
+        languageMenu.textProperty().bind(RESOURCE_FACTORY.getStringBinding("languageMenu"));
+        styleMenu.textProperty().bind(RESOURCE_FACTORY.getStringBinding("styleMenu"));
+
+        System.out.println(Arrays.toString(Locale.getAvailableLocales()));
+
+    }
+
+
+    public void changeLanguage(ActionEvent actionEvent) {
+        if(actionEvent.getSource()==spanishMenuItem){
+            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.forLanguageTag("es")));
+
+
+        }
+        else if(actionEvent.getSource()==englishMenuItem){
+            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.ROOT));
+
+        }
+    }
+
+    public void close(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }
