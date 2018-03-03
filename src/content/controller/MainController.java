@@ -65,7 +65,7 @@ public class MainController implements Initializable {
     TableView methodTable;
 
     @FXML
-    Button calculateBtn, howBtn;
+    Button calculateBtn, howBtn, drawBtn;
 
     @FXML
     MenuItem spanishMenuItem, englishMenuItem, closeMenuItem, newFileMenuItem, defaultThemeMenuItem, darkThemeMenuItem, lightThemeMenuItem;
@@ -133,7 +133,6 @@ public class MainController implements Initializable {
         //create list for optional objects for different methods
         optionalObjects = new ArrayList<Object>();
 
-
         ObservableList<TableMethod> options =
                 FXCollections.observableArrayList(
                         new Biseccion(),
@@ -149,7 +148,10 @@ public class MainController implements Initializable {
             @Override public void changed(ObservableValue value, TableMethod old, TableMethod newO) {
                 //Show your scene here
                 solveEnd.setDisable(false);
+                toSolveLabel.setDisable(false);
                 optionalObjects.clear();
+
+
 
                 if(newO.getClass()==Biseccion.class){
                     optionalFields.getChildren().clear();
@@ -162,10 +164,13 @@ public class MainController implements Initializable {
                 else if(newO.getClass()==PuntoFijo.class){
                     solveEnd.setText("");
                     solveEnd.setDisable(true);
+                    toSolveLabel.setDisable(true);
+
+
                     optionalFields.getChildren().clear();
                     HBox hBox = new HBox();
-                    hBox.setSpacing(15);
-                    hBox.getChildren().add(new Label("Introduce el despeje"));
+                    hBox.setSpacing(3);
+                    hBox.getChildren().add(new Label("x="));
                     TextField textField = new TextField();
                     optionalObjects.add(textField);
                     hBox.getChildren().add(textField);
@@ -189,7 +194,9 @@ public class MainController implements Initializable {
 
     @FXML
     public void reset(){
-        lineChart.setTitle("Please insert input");
+        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
+
+        lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
 
         lineChart.getData().clear();
 
@@ -205,14 +212,14 @@ public class MainController implements Initializable {
         errorField.setText("");
 
         solveEnd.setDisable(false);
+        toSolveLabel.setDisable(false);
+
+        resultLabel.setText("");
 
         bindText();
     }
 
     private void bindText(){
-
-        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
-
         resultLabelText.textProperty().bind(RESOURCE_FACTORY.getStringBinding("resultLabelText"));
         toSolveLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("toSolveLabel"));
         toDrawLabel.textProperty().bind(RESOURCE_FACTORY.getStringBinding("toDrawLabel"));
@@ -234,7 +241,9 @@ public class MainController implements Initializable {
         languageMenu.textProperty().bind(RESOURCE_FACTORY.getStringBinding("languageMenu"));
         styleMenu.textProperty().bind(RESOURCE_FACTORY.getStringBinding("styleMenu"));
 
-        System.out.println(Arrays.toString(Locale.getAvailableLocales()));
+        calculateBtn.textProperty().bind(RESOURCE_FACTORY.getStringBinding("calculateBtn"));
+        drawBtn.textProperty().bind(RESOURCE_FACTORY.getStringBinding("drawBtn"));
+
 
     }
 
@@ -249,6 +258,10 @@ public class MainController implements Initializable {
             RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.ROOT));
 
         }
+
+        if(!lineChart.getTitle().equals(equationField.getText()))
+            lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
+
     }
 
     public void close(ActionEvent actionEvent) {

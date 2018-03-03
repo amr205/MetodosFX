@@ -27,6 +27,11 @@ public class Resources extends ListResourceBundle{
                 {"fileMenu", "File"},
                 {"languageMenu", "Language"},
                 {"styleMenu", "Style"},
+                //calculateBtn, howBtn, drawBtn
+                {"calculateBtn", "Calculate"},
+                {"drawBtn", "Draw"},
+                //text of atributes
+                {"insertInput", "Please insert input"},
         };
     }
 }
