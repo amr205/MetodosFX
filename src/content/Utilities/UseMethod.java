@@ -1,14 +1,17 @@
 package content.Utilities;
 
 
+import content.resources.lang.Resources;
 import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import content.methods.TableMethod;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class UseMethod {
-    public static void calculateResult(TableView table, Label resultLabel, TextField equationField, TextField solveStart, TextField solveEnd, TextField solveError, ComboBox methodBox, ArrayList<Object> list){
+    public static void calculateResult(ObservableResourceFactory RESOURCE_FACTORY, TableView table, Label resultLabel, TextField equationField, TextField solveStart, TextField solveEnd, TextField solveError, ComboBox methodBox, ArrayList<Object> list){
+
         TableMethod method = (TableMethod)methodBox.getValue();
         boolean isCorrect = true;
         float initA, initB, errorP;
@@ -21,29 +24,43 @@ public class UseMethod {
             if(!solveEnd.isDisable())
                 initB = Float.parseFloat(solveEnd.getText());
 
-
-            if(!solveError.getText().isEmpty()||!solveError.getText().equals(""))
-                errorP = Float.parseFloat(solveError.getText());
-
             if(initB<=initA&&!solveStart.isDisable()&&!solveEnd.isDisable()){
                 isCorrect=false;
 
                 Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setTitle("Error Wrong Input");
-                error.setHeaderText("Please correct the following");
-                error.setContentText("Starting point of the method needs to be lower than final point");
+                error.setTitle(RESOURCE_FACTORY.getResources().getString("wrongInputTitle"));
+                error.setHeaderText(RESOURCE_FACTORY.getResources().getString("correctFollowingHeader"));
+                error.setContentText(RESOURCE_FACTORY.getResources().getString("startingPointMethodDescription"));
                 error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 error.show();
+
+                return;
 
             }
         }catch (Exception e){isCorrect=false;
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Error Wrong Input");
-            error.setHeaderText("Please correct the following");
-            error.setContentText("Incorrect input in range of the method, check you are entering only numbers");
+            error.setTitle(RESOURCE_FACTORY.getResources().getString("wrongInputTitle"));
+            error.setHeaderText(RESOURCE_FACTORY.getResources().getString("correctFollowingHeader"));
+            error.setContentText(RESOURCE_FACTORY.getResources().getString("incorrectRangeMethodDescription"));
             error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             error.show();
-            isCorrect = false;}
+            isCorrect = false;
+            return;
+        }
+
+        try{
+            if(!solveError.getText().isEmpty()||!solveError.getText().equals(""))
+                errorP = Float.parseFloat(solveError.getText());
+        }catch (Exception e){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle(RESOURCE_FACTORY.getResources().getString("wrongInputTitle"));
+            error.setHeaderText(RESOURCE_FACTORY.getResources().getString("correctFollowingHeader"));
+            error.setContentText(RESOURCE_FACTORY.getResources().getString("incorrectErrorMethodDescription"));
+            error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            error.show();
+            isCorrect = false;
+            return;
+        }
 
         if(isCorrect){
             method.initializeColumns(table);

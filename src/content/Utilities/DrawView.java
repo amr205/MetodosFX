@@ -1,5 +1,6 @@
 package content.Utilities;
 
+import content.resources.lang.Resources;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -8,9 +9,11 @@ import javafx.scene.layout.Region;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-public class DrawView {
+import java.util.ResourceBundle;
 
-    public static void drawEquation(LineChart lineChart, TextField equationField, TextField drawStart, TextField drawEnd){
+public class DrawView {
+    public static boolean drawEquation(ObservableResourceFactory RESOURCE_FACTORY, LineChart lineChart, TextField equationField, TextField drawStart, TextField drawEnd){
+
         Expression expression;
         float drawS, drawE;
         drawS =0;
@@ -22,14 +25,14 @@ public class DrawView {
             expression = new ExpressionBuilder(equationField.getText()).variable("x").build();
         }catch (Exception e){
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Error Wrong Input");
-            error.setHeaderText("The equation is not valid");
-            error.setContentText("Check you are using x as variable (not X)\nMore info in: How to enter equation");
+            error.setTitle(RESOURCE_FACTORY.getResources().getString("wrongInputTitle"));
+            error.setHeaderText(RESOURCE_FACTORY.getResources().getString("equationErrorHeader"));
+            error.setContentText(RESOURCE_FACTORY.getResources().getString("equationErrorDescription"));
             error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             error.show();
 
 
-            return;
+            return false;
         }
 
 
@@ -39,18 +42,18 @@ public class DrawView {
 
             if (drawE <= drawS) {
                 Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setTitle("Error Wrong Input");
-                error.setHeaderText("Please correct the following");
-                error.setContentText("Starting point of the graphic needs to be lower than final point");
+                error.setTitle(RESOURCE_FACTORY.getResources().getString("wrongInputTitle"));
+                error.setHeaderText(RESOURCE_FACTORY.getResources().getString("correctFollowingHeader"));
+                error.setContentText(RESOURCE_FACTORY.getResources().getString("startingPointDrawDescription"));
                 error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 error.show();
                 isCorrect = false;
             }
         } catch (Exception e) {
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Error Wrong Input");
-            error.setHeaderText("Please correct the following");
-            error.setContentText("Incorrect input in range of the graphic, check you are entering only numbers");
+            error.setTitle(RESOURCE_FACTORY.getResources().getString("wrongInputTitle"));
+            error.setHeaderText(RESOURCE_FACTORY.getResources().getString("correctFollowingHeader"));
+            error.setContentText(RESOURCE_FACTORY.getResources().getString("incorrectRangeDrawDescription"));
             error.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             error.show();
             isCorrect = false;
@@ -74,7 +77,7 @@ public class DrawView {
                 lineChart.setTitle(equationField.getText());
                 //defining a series
                 XYChart.Series series = new XYChart.Series();
-                series.setName("Graphic");
+                series.setName(RESOURCE_FACTORY.getResources().getString("graphicTitle"));
                 //populating the series with data
                 for (float i = drawS; i <= drawE; i += inc) {
                     try {
@@ -93,6 +96,6 @@ public class DrawView {
         } catch (Exception e) {
             //error
         }
-
+        return isCorrect;
     }
 }

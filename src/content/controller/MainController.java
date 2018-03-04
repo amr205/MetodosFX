@@ -75,54 +75,22 @@ public class MainController implements Initializable {
 
 
     private final String RESOURCE_NAME = Resources.class.getTypeName() ;
-
     private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
 
 
     @FXML
     protected void showInfo(){
-        String content =
-                "BUILT IN OPERATORS: \n" +
-                        "    Addition: 2 + 2\n" +
-                        "    Subtraction: 2 - 2\n" +
-                        "    Multiplication: 2 * 2\n" +
-                        "    Division: 2 / 2\n" +
-                        "    Exponentation: 2 ^ 2\n" +
-                        "    Unary Minus,Plus (Sign Operators): +2 - (-2)\n" +
-                        "    Modulo: 2 % 2\n\n"+
-                        "BUILT IN FUNCTIONS: \n" +
-                        "    abs: absolute value\n" +
-                        "    acos: arc cosine\n" +
-                        "    asin: arc sine\n" +
-                        "    atan: arc tangent\n" +
-                        "    cbrt: cubic root\n" +
-                        "    ceil: nearest upper integer\n" +
-                        "    cos: cosine\n" +
-                        "    cosh: hyperbolic cosine\n" +
-                        "    exp: euler's number raised to the power (e^x)\n" +
-                        "    floor: nearest lower integer\n" +
-                        "    log: logarithmus naturalis (base e)\n" +
-                        "    log10: logarithm (base 10)\n" +
-                        "    log2: logarithm (base 2)\n" +
-                        "    sin: sine\n" +
-                        "    sinh: hyperbolic sine\n" +
-                        "    sqrt: square root\n" +
-                        "    tan: tangent\n" +
-                        "    tanh: hyperbolic tangent\n" +
-                        "    signum: signum function";
-
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle("How to enter a equation");
-        info.setHeaderText("Use the follow operators and functions: \n" +
-                "Example: log(x)*sin(x)+(1/3)x");
-        info.setContentText(content);
+        info.setTitle(RESOURCE_FACTORY.getResources().getString("howToTitle"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("howToHeader"));
+        info.setContentText(RESOURCE_FACTORY.getResources().getString("howToDescription"));
         info.show();
     }
 
     @FXML
     protected void calculateResult(){
-        DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
-        UseMethod.calculateResult(methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox,optionalObjects);
+        if(DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd))
+            UseMethod.calculateResult(RESOURCE_FACTORY,methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox,optionalObjects);
 
 
     }
@@ -189,7 +157,7 @@ public class MainController implements Initializable {
     }
 
     public void draw(ActionEvent actionEvent) {
-        DrawView.drawEquation(lineChart,equationField,drawStart,drawEnd);
+        DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
     }
 
     @FXML
@@ -247,7 +215,6 @@ public class MainController implements Initializable {
 
     }
 
-
     public void changeLanguage(ActionEvent actionEvent) {
         if(actionEvent.getSource()==spanishMenuItem){
             RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.forLanguageTag("es")));
@@ -261,6 +228,10 @@ public class MainController implements Initializable {
 
         if(!lineChart.getTitle().equals(equationField.getText()))
             lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
+        else
+            DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
+
+
 
     }
 
