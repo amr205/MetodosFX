@@ -38,9 +38,9 @@
                 <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="spanishMenuItem"/>
             </Menu>
             <Menu fx:id="styleMenu" text="Language">
-                <MenuItem text="English" onAction="#changeLanguage" fx:id="defaultThemeMenuItem"/>
-                <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="darkThemeMenuItem"/>
-                <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="lightThemeMenuItem"/>
+                <MenuItem text="English" onAction="#changeStyle" fx:id="defaultThemeMenuItem"/>
+                <MenuItem text="Spanish" onAction="#changeStyle" fx:id="darkThemeMenuItem"/>
+                <MenuItem text="Spanish" onAction="#changeStyle" fx:id="lightThemeMenuItem"/>
             </Menu>
         </MenuBar>
     </top>
@@ -85,9 +85,9 @@
                                     </children>
                                 </HBox>
                                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="3">
-                                    <ComboBox fx:id="methodBox"  prefWidth="150" />
-                                    <Label text="e%" textAlignment="CENTER" alignment="CENTER" prefWidth="100"/>
-                                    <TextField fx:id="errorField" prefWidth="100"/>
+                                    <ComboBox fx:id="methodBox"  prefWidth="180" />
+                                    <Label text="e%" textAlignment="CENTER" alignment="CENTER" prefWidth="60"/>
+                                    <TextField fx:id="errorField" prefWidth="80"/>
                                 </HBox>
 
                                 <Label fx:id="drawFromLabel" prefHeight="16.0" prefWidth="79.0" text="Draw from:" GridPane.columnIndex="2" />

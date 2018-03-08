@@ -77,6 +77,15 @@ public class Resources_es extends ListResourceBundle{
                 {"incorrectRangeDrawDescription", "Entrada incorrecta en el rango de la gráfica, checa que introduzcas solo números"},
                 //graphic title
                 {"graphicTitle", "Gráfica"},
+                //optionalFieldsErrors
+                {"equationDfxErrorHeader", "La ecuación f'(x) no es valida"},
+                //name of methods
+                {"bisectionMethod", "Bisección"},
+                {"falseRuleMethod", "Regla falsa"},
+                {"pointMethod", "Punto fijo"},
+                {"NewtonRaphsonMethod", "Newton Raphson"},
+
+
         };
     }
 }

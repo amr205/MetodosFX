@@ -2,7 +2,7 @@ package content.methods.model;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class BiseccionModel {
+public class PuntoFijoModel {
     public final SimpleStringProperty n;
     public final SimpleStringProperty a;
     public final SimpleStringProperty b;
@@ -12,7 +12,7 @@ public class BiseccionModel {
     public final SimpleStringProperty fxr;
     public final SimpleStringProperty error;
 
-    public BiseccionModel(String _n, String _a, String _b, String _fa, String _fb, String _xr, String _fxr, String _error) {
+    public PuntoFijoModel(String _n, String _a, String _b, String _fa, String _fb, String _xr, String _fxr, String _error) {
         this.n = new SimpleStringProperty(_n);
         this.a = new SimpleStringProperty(_a);
         this.b = new SimpleStringProperty(_b);

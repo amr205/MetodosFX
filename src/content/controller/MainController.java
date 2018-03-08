@@ -1,8 +1,10 @@
 package content.controller;
 
+import content.Main;
 import content.Utilities.DrawView;
 import content.Utilities.ObservableResourceFactory;
 import content.Utilities.UseMethod;
+import content.methods.NewtonRaphson;
 import content.resources.lang.Resources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,17 +17,16 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import content.methods.Biseccion;
 import content.methods.FalseRule;
 import content.methods.PuntoFijo;
 import content.methods.TableMethod;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -77,6 +78,11 @@ public class MainController implements Initializable {
     private final String RESOURCE_NAME = Resources.class.getTypeName() ;
     private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
 
+    Stage stage;
+
+    private ChangeListener<TableMethod> listener = null;
+    private int selectedItem = 0;
+
 
     @FXML
     protected void showInfo(){
@@ -101,51 +107,8 @@ public class MainController implements Initializable {
         //create list for optional objects for different methods
         optionalObjects = new ArrayList<Object>();
 
-        ObservableList<TableMethod> options =
-                FXCollections.observableArrayList(
-                        new Biseccion(),
-                        new FalseRule(),
-                        new PuntoFijo()
-                );
-        methodBox.setItems(options);
-
-
+        initializaMethodBox();
         reset();
-
-        methodBox.valueProperty().addListener(new ChangeListener<TableMethod>() {
-            @Override public void changed(ObservableValue value, TableMethod old, TableMethod newO) {
-                //Show your scene here
-                solveEnd.setDisable(false);
-                toSolveLabel.setDisable(false);
-                optionalObjects.clear();
-
-
-
-                if(newO.getClass()==Biseccion.class){
-                    optionalFields.getChildren().clear();
-
-                }
-                else if(newO.getClass()==FalseRule.class){
-                    optionalFields.getChildren().clear();
-
-                }
-                else if(newO.getClass()==PuntoFijo.class){
-                    solveEnd.setText("");
-                    solveEnd.setDisable(true);
-                    toSolveLabel.setDisable(true);
-
-
-                    optionalFields.getChildren().clear();
-                    HBox hBox = new HBox();
-                    hBox.setSpacing(3);
-                    hBox.getChildren().add(new Label("x="));
-                    TextField textField = new TextField();
-                    optionalObjects.add(textField);
-                    hBox.getChildren().add(textField);
-                    optionalFields.getChildren().add(hBox);
-                }
-            }
-        });
 
         leftPane.maxWidthProperty().set(600);
         leftPane.minWidthProperty().set(10);
@@ -226,6 +189,9 @@ public class MainController implements Initializable {
 
         }
 
+        initializaMethodBox();
+
+
         if(!lineChart.getTitle().equals(equationField.getText()))
             lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
         else
@@ -237,5 +203,52 @@ public class MainController implements Initializable {
 
     public void close(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+    public void changeStyle(ActionEvent actionEvent) {
+        if(actionEvent.getSource()==defaultThemeMenuItem){
+            stage.getScene().getStylesheets().clear();
+        }
+        else if(actionEvent.getSource()==darkThemeMenuItem){
+            stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style.css").toString());
+        }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    private void initializaMethodBox(){
+        if(listener!=null)
+            methodBox.valueProperty().removeListener(listener);
+        methodBox.getItems().clear();
+        ObservableList<TableMethod> options =
+                FXCollections.observableArrayList(
+                        new Biseccion(RESOURCE_FACTORY),
+                        new FalseRule(RESOURCE_FACTORY),
+                        new PuntoFijo(RESOURCE_FACTORY),
+                        new NewtonRaphson(RESOURCE_FACTORY)
+                );
+        methodBox.setItems(options);
+        methodBox.getSelectionModel().select(selectedItem);
+
+        listener = new ChangeListener<TableMethod>() {
+            @Override public void changed(ObservableValue value, TableMethod old, TableMethod newO) {
+                //Show your scene here
+                solveEnd.setDisable(false);
+                toSolveLabel.setDisable(false);
+                optionalObjects.clear();
+                optionalFields.getChildren().clear();
+                newO.initializeOptional(optionalFields,optionalObjects);
+                selectedItem = methodBox.getItems().indexOf(newO);
+                if(newO.getClass()==PuntoFijo.class||newO.getClass()==NewtonRaphson.class){
+                    solveEnd.setText("");
+                    solveEnd.setDisable(true);
+                    toSolveLabel.setDisable(true);
+                }
+            }
+        };
+        methodBox.valueProperty().addListener(listener);
+
     }
 }

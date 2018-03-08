@@ -1,5 +1,6 @@
 package content.methods;
 
+import content.Utilities.ObservableResourceFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -12,6 +13,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class FalseRule extends TableMethod {
+    public FalseRule(ObservableResourceFactory RESOURCE_FACTORY) {
+        super(RESOURCE_FACTORY);
+    }
+
     @Override
     public void initializeColumns(TableView table) {
         table.getColumns().clear();
@@ -116,6 +121,6 @@ public class FalseRule extends TableMethod {
     @Override
     public String toString(){
         //return "Bisección";
-        return "False Rule";
+        return  RESOURCE_FACTORY.getResources().getString("bisectionMethod");
     }
 }

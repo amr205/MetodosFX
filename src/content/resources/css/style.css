@@ -18,8 +18,21 @@ linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(
 }
 
 .button {
--fx-background-color: transparent;
+-fx-background-color: rgb(60, 60, 60);
 }
+
+#calculateBtn{
+-fx-background-color: rgb(100, 150, 200);
+-fx-text-fill: white;
+}
+
+.default-color0.chart-series-line { -fx-stroke: rgb(100, 150, 200); }
+.default-color1.chart-series-line { -fx-stroke: yellow; }
+.default-color2.chart-series-line { -fx-stroke: brown; }
+
+.default-color0.chart-line-symbol { -fx-background-color: rgb(100, 150, 200), white; }
+.default-color1.chart-line-symbol { -fx-background-color: #f0e68c, white; }
+.default-color2.chart-line-symbol { -fx-background-color: #dda0dd, white; }
 
 .button:hover {
 -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;

@@ -61,7 +61,7 @@ public class UseMethod {
             isCorrect = false;
             return;
         }
-
+        isCorrect = method.validateOptional(RESOURCE_FACTORY,list);
         if(isCorrect){
             method.initializeColumns(table);
             float result = method.doMethod(table, initA, initB, errorP,equationField.getText(),list);

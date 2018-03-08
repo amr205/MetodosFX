@@ -1,5 +1,6 @@
 package content;
 
+import content.controller.MainController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -18,13 +19,15 @@ public class Main extends Application {
         double result = new ExpressionBuilder("x+y").variables("x","y").build().
                 setVariable("x",15).setVariable("y",6).evaluate();
 
-
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/mainWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/mainWindow.fxml"));
+        Parent root = (Parent)loader.load();
+        MainController mainController = (MainController)loader.getController();
+        mainController.setStage(primaryStage);
         primaryStage.setTitle("MétodosFX");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/icon.png")));
         Scene scene = new Scene(root, 1200, 800);
-        //scene.getStylesheets().add(getClass().getResource("resources/css/style.css").toString());
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
 
 

@@ -76,6 +76,15 @@ public class Resources extends ListResourceBundle{
                 {"incorrectRangeDrawDescription", "Incorrect input in range of the graphic, check you are entering only numbers"},
                 //graphic title
                 {"graphicTitle", "Graphic"},
+                //optionalFieldsErrors
+                {"equationDfxErrorHeader", "The equation f'(x) is not valid"},
+                //name of methods
+                //name of methods
+                {"bisectionMethod", "Bisection"},
+                {"falseRuleMethod", "False position"},
+                {"pointMethod", "Fixed point"},
+                {"NewtonRaphsonMethod", "Newton Raphson"},
+
 
         };
     }
