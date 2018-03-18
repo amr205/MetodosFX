@@ -124,11 +124,6 @@ public class Gauss extends ParentMethod{
 
     }
 
-    @Override
-    public void updateLanguage() {
-        inputController.updateLanguage();
-    }
-
     /** Main function **/
 
 

@@ -13,8 +13,6 @@ public class ParentMethod {
 
     }
 
-    public void updateLanguage(){}
-
     public void showInfo(){
 
     }

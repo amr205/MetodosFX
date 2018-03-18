@@ -36,11 +36,9 @@ public class GaussInputController implements Initializable{
     @FXML
     TextField numberField;
 
-
-    private final String RESOURCE_NAME = Resources.class.getTypeName() ;
-    private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
-
     private final Preferences prefs = Preferences.userNodeForPackage(Main.class);
+    private String RESOURCE_NAME;
+    private ObservableResourceFactory RESOURCE_FACTORY;
 
 
 
@@ -54,14 +52,15 @@ public class GaussInputController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
+        RESOURCE_FACTORY = Main.RESOURCE_FACTORY;
+        RESOURCE_NAME = Main.RESOURCE_NAME;
 
         n=0;
         areFields = false;
         currentText = "";
 
         bindText();
-        updateLanguage();
+        //updateLanguage();
     }
 
     public void updateLanguage() {
@@ -181,5 +180,5 @@ public class GaussInputController implements Initializable{
     }
 
 
-    //TODO make language stay between scenes
+    //TODO make style stay between scenes
 }

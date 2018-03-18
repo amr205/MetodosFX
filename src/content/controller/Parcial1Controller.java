@@ -77,54 +77,38 @@ public class Parcial1Controller implements Initializable {
     Menu fileMenu, languageMenu, styleMenu, problemMenu;
 
 
-    private final String RESOURCE_NAME = Resources.class.getTypeName() ;
-    private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
+    private String RESOURCE_NAME;
+    private ObservableResourceFactory RESOURCE_FACTORY;
+
     private final  Preferences prefs = Preferences.userNodeForPackage(Main.class);
 
-    Stage stage;
+    private Stage stage;
 
     private ChangeListener<TableMethod> listener = null;
     private int selectedItem = 0;
 
-
-    @FXML
-    protected void showInfo(){
-        Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("howToTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("howToHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("howToDescription"));
-        info.show();
-    }
-
-    @FXML
-    protected void calculateResult(){
-        if(DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd))
-            UseMethod.calculateResult(RESOURCE_FACTORY,methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox,optionalObjects);
-
-
-    }
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //init resource factory
+        RESOURCE_FACTORY = Main.RESOURCE_FACTORY;
+        RESOURCE_NAME = Main.RESOURCE_NAME;
+
         //create list for optional objects for different methods
         optionalObjects = new ArrayList<Object>();
-
-        initializaMethodBox();
-        reset();
 
         leftPane.maxWidthProperty().set(600);
         leftPane.minWidthProperty().set(10);
         centerContent.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> splitPane.setDividerPosition(0,600));
-    }
 
-    public void draw(ActionEvent actionEvent) {
-        DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
+        initializaMethodBox();
+        reset();
+
+        prefs.putInt("LAST_WINDOW",1);
+
     }
 
     @FXML
     public void reset(){
-        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
 
         lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
 
@@ -147,7 +131,6 @@ public class Parcial1Controller implements Initializable {
         resultLabel.setText("");
 
         bindText();
-
         updateLanguage();
     }
 
@@ -180,61 +163,6 @@ public class Parcial1Controller implements Initializable {
         problem1MenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("problem1MenuItem"));
         problem2MenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("problem2MenuItem"));
 
-
-
-
-    }
-
-    public void changeLanguage(ActionEvent actionEvent) {
-        if(actionEvent.getSource()==spanishMenuItem)
-            prefs.put("DEFAULT_LANGUAGE","es");
-        else if(actionEvent.getSource()==englishMenuItem)
-            prefs.put("DEFAULT_LANGUAGE","en");
-
-        updateLanguage();
-
-
-    }
-
-    private void updateLanguage(){
-        String defaultLang = prefs.get("DEFAULT_LANGUAGE","es");
-
-        if(defaultLang.equals("es"))
-            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.forLanguageTag("es")));
-
-        else if(defaultLang.equals("en"))
-            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.ROOT));
-
-
-        initializaMethodBox();
-
-
-        if(!lineChart.getTitle().equals(equationField.getText()))
-            lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
-        else
-            DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
-
-    }
-
-    public void close(ActionEvent actionEvent) {
-        System.exit(0);
-    }
-
-    public void changeStyle(ActionEvent actionEvent) {
-        if(actionEvent.getSource()==defaultThemeMenuItem){
-            stage.getScene().getStylesheets().clear();
-        }
-        else if(actionEvent.getSource()==darkThemeMenuItem){
-            stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style.css").toString());
-        }
-        else if(actionEvent.getSource()==lightThemeMenuItem){
-            stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style2.css").toString());
-
-        }
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
     private void initializaMethodBox(){
@@ -263,7 +191,6 @@ public class Parcial1Controller implements Initializable {
 
             selectedItem = methodBox.getItems().indexOf(newO);
             if(newO.getClass()==PuntoFijo.class||newO.getClass()==NewtonRaphson.class){
-                solveEnd.setText("");
                 solveEnd.setDisable(true);
                 toSolveLabel.setDisable(true);
             }
@@ -271,6 +198,111 @@ public class Parcial1Controller implements Initializable {
         methodBox.valueProperty().addListener(listener);
 
     }
+
+    @FXML
+    protected void showInfo(){
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle(RESOURCE_FACTORY.getResources().getString("howToTitle"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("howToHeader"));
+        info.setContentText(RESOURCE_FACTORY.getResources().getString("howToDescription"));
+        info.show();
+    }
+
+    @FXML
+    protected void calculateResult(){
+        if(DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd))
+            UseMethod.calculateResult(RESOURCE_FACTORY,methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox,optionalObjects);
+
+
+    }
+
+    @FXML
+    public void draw(ActionEvent actionEvent) {
+        DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
+    }
+
+    public void changeLanguage(ActionEvent actionEvent) {
+        if(actionEvent.getSource()==spanishMenuItem)
+            prefs.put("DEFAULT_LANGUAGE","es");
+        else if(actionEvent.getSource()==englishMenuItem)
+            prefs.put("DEFAULT_LANGUAGE","en");
+
+        updateLanguage();
+
+
+    }
+
+    @FXML
+    private void updateLanguage(){
+        String defaultLang = prefs.get("DEFAULT_LANGUAGE","es");
+
+        if(defaultLang.equals("es"))
+            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.forLanguageTag("es")));
+
+        else if(defaultLang.equals("en"))
+            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.ROOT));
+
+
+        initializaMethodBox();
+
+
+        if(!lineChart.getTitle().equals(equationField.getText()))
+            lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
+        else
+            DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
+
+    }
+
+    @FXML
+    public void changeStyle(ActionEvent actionEvent) {
+        if(actionEvent.getSource()==defaultThemeMenuItem)
+            prefs.put("DEFAULT_STYLE","default");
+
+        else if(actionEvent.getSource()==darkThemeMenuItem)
+            prefs.put("DEFAULT_STYLE","dark");
+
+        else if(actionEvent.getSource()==lightThemeMenuItem)
+            prefs.put("DEFAULT_STYLE","light");
+
+        updateStyle();
+
+    }
+
+    private void updateStyle(){
+        try {
+            String defaultStyle = prefs.get("DEFAULT_STYLE", "default");
+
+
+            if (defaultStyle.equals("default"))
+                stage.getScene().getStylesheets().clear();
+
+            else if (defaultStyle.equals("dark"))
+                stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style.css").toString());
+
+            else if (defaultStyle.equals("light"))
+                stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style2.css").toString());
+
+
+        }catch (Exception e){
+            System.out.println(e.getMessage()+e.getCause()+e.toString());
+        }
+
+    }
+
+    @FXML
+    public void close(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        updateStyle();
+
+    }
+
+
 
     @FXML
     public void showDescription(ActionEvent actionEvent) {
@@ -287,9 +319,9 @@ public class Parcial1Controller implements Initializable {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial2.fxml"));
                 Parent root = (Parent)loader.load();
                 Parcial2Controller mainController = (Parcial2Controller)loader.getController();
-                mainController.setStage(stage);
                 Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
                 stage.setScene(scene);
+                mainController.setStage(stage);
 
             }catch (Exception e){
                 System.out.println(e.getMessage());

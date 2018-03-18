@@ -48,24 +48,23 @@ public class Parcial2Controller implements Initializable{
     @FXML
     MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
 
-    private final String RESOURCE_NAME = Resources.class.getTypeName() ;
-    private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
+    private String RESOURCE_NAME;
+    private ObservableResourceFactory RESOURCE_FACTORY;
     private final Preferences prefs = Preferences.userNodeForPackage(Main.class);
 
     private Stage stage;
     private ChangeListener<ParentMethod> listener = null;
     private int selectedItem = 0;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
+
 
     //METHODS
     private Gauss gauss;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
+        RESOURCE_FACTORY = Main.RESOURCE_FACTORY;
+        RESOURCE_NAME = Main.RESOURCE_NAME;
 
         leftPane.maxWidthProperty().set(600);
         leftPane.minWidthProperty().set(10);
@@ -78,6 +77,9 @@ public class Parcial2Controller implements Initializable{
         gauss = new Gauss(RESOURCE_FACTORY);
 
         reset();
+
+        prefs.putInt("LAST_WINDOW",2);
+
     }
     
     public void close() {
@@ -87,9 +89,9 @@ public class Parcial2Controller implements Initializable{
 
     public void reset() {
         bindText();
-        updateLanguage();
+        initializaMethodBox();
         methodBox.getValue().initialize(inputSection, outputSection);
-        methodBox.getValue().updateLanguage();
+
     }
 
     private void bindText(){
@@ -122,9 +124,10 @@ public class Parcial2Controller implements Initializable{
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial1.fxml"));
                 Parent root = (Parent) loader.load();
                 Parcial1Controller mainController = (Parcial1Controller) loader.getController();
-                mainController.setStage(stage);
                 Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
                 stage.setScene(scene);
+                mainController.setStage(stage);
+
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -157,21 +160,38 @@ public class Parcial2Controller implements Initializable{
     }
 
     public void changeStyle(ActionEvent actionEvent) {
-        if(actionEvent.getSource()==defaultThemeMenuItem){
-            stage.getScene().getStylesheets().clear();
-        }
-        else if(actionEvent.getSource()==darkThemeMenuItem){
-            stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style.css").toString());
-        }
-        else if(actionEvent.getSource()==lightThemeMenuItem){
-            stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style2.css").toString());
+        if(actionEvent.getSource()==defaultThemeMenuItem)
+            prefs.put("DEFAULT_STYLE","default");
 
-        }
+        else if(actionEvent.getSource()==darkThemeMenuItem)
+            prefs.put("DEFAULT_STYLE","dark");
+
+        else if(actionEvent.getSource()==lightThemeMenuItem)
+            prefs.put("DEFAULT_STYLE","light");
+
+        updateStyle();
+
     }
 
+    private void updateStyle(){
+        try {
+            String defaultStyle = prefs.get("DEFAULT_STYLE", "default");
 
 
+            if (defaultStyle.equals("default"))
+                stage.getScene().getStylesheets().clear();
 
+            else if (defaultStyle.equals("dark"))
+                stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style.css").toString());
+
+            else if (defaultStyle.equals("light"))
+                stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style2.css").toString());
+
+
+        }catch (Exception e){
+            System.out.println(e.getMessage()+e.getCause()+e.toString());
+        }
+    }
 
     public void showInfo(ActionEvent actionEvent) {
     }
@@ -192,18 +212,19 @@ public class Parcial2Controller implements Initializable{
         listener = (value, old, newO) -> {
             if(selectedItem!=methodBox.getItems().indexOf(newO)){
                 newO.initialize(inputSection, outputSection);
-                newO.updateLanguage();
                 selectedItem = methodBox.getItems().indexOf(newO);
-            }
-            else{
-                newO.updateLanguage();
-
             }
         };
 
         methodBox.valueProperty().addListener(listener);
 
         methodBox.getSelectionModel().select(selectedItem);
+
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        updateStyle();
 
     }
 }
