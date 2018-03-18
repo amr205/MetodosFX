@@ -26,12 +26,16 @@
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 
 <?import javafx.scene.control.Separator?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="content.controller.MainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="content.controller.Parcial1Controller">
     <top>
         <MenuBar>
             <Menu fx:id="fileMenu" text="File">
                 <MenuItem text="New" onAction="#reset" fx:id="newFileMenuItem"/>
                 <MenuItem text="Exit" onAction="#close" fx:id="closeMenuItem"/>
+            </Menu>
+            <Menu fx:id="problemMenu" text="TiposDeProblemas">
+                <MenuItem text="Parcial 1" onAction="#changeWindow" fx:id="problem1MenuItem"/>
+                <MenuItem text="Parcial 2" onAction="#changeWindow" fx:id="problem2MenuItem"/>
             </Menu>
             <Menu fx:id="languageMenu" text="Language">
                 <MenuItem text="English" onAction="#changeLanguage" fx:id="englishMenuItem"/>
@@ -111,6 +115,10 @@
                                 <VBox.margin>
                                     <Insets bottom="0.0" left="12.0" right="12.0" top="0.0" />
                                 </VBox.margin>
+                                <Button onAction="#showDescription" fx:id="descriptionBtn" mnemonicParsing="false">
+                                    <graphic><FontAwesomeIconView glyphName="BOOK" fill="cornflowerblue" glyphSize="20">
+                                    </FontAwesomeIconView></graphic>
+                                </Button>
                                 <Button onAction="#showInfo" fx:id="howBtn" mnemonicParsing="false">
                                     <graphic><FontAwesomeIconView glyphName="INFO_CIRCLE" fill="cornflowerblue" glyphSize="20">
                                     </FontAwesomeIconView></graphic>

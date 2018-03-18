@@ -4,7 +4,7 @@ import content.Main;
 import content.Utilities.DrawView;
 import content.Utilities.ObservableResourceFactory;
 import content.Utilities.UseMethod;
-import content.methods.NewtonRaphson;
+import content.methods.*;
 import content.resources.lang.Resources;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,26 +12,28 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import content.methods.Biseccion;
-import content.methods.FalseRule;
-import content.methods.PuntoFijo;
-import content.methods.TableMethod;
 import javafx.stage.Stage;
 
+import java.beans.Expression;
 import java.net.URL;
 import java.util.ArrayList;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 
-public class MainController implements Initializable {
+public class Parcial1Controller implements Initializable {
 
     ArrayList<Object> optionalObjects;
 
@@ -69,14 +71,15 @@ public class MainController implements Initializable {
     Button calculateBtn, howBtn, drawBtn;
 
     @FXML
-    MenuItem spanishMenuItem, englishMenuItem, closeMenuItem, newFileMenuItem, defaultThemeMenuItem, darkThemeMenuItem, lightThemeMenuItem;
+    MenuItem spanishMenuItem, englishMenuItem, closeMenuItem, newFileMenuItem, defaultThemeMenuItem, darkThemeMenuItem, lightThemeMenuItem, problem1MenuItem, problem2MenuItem;
 
     @FXML
-    Menu fileMenu, languageMenu, styleMenu;
+    Menu fileMenu, languageMenu, styleMenu, problemMenu;
 
 
     private final String RESOURCE_NAME = Resources.class.getTypeName() ;
     private final ObservableResourceFactory RESOURCE_FACTORY = new ObservableResourceFactory();
+    private final  Preferences prefs = Preferences.userNodeForPackage(Main.class);
 
     Stage stage;
 
@@ -112,11 +115,7 @@ public class MainController implements Initializable {
 
         leftPane.maxWidthProperty().set(600);
         leftPane.minWidthProperty().set(10);
-        centerContent.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                splitPane.setDividerPosition(0,600);
-            }
-        });
+        centerContent.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> splitPane.setDividerPosition(0,600));
     }
 
     public void draw(ActionEvent actionEvent) {
@@ -148,6 +147,8 @@ public class MainController implements Initializable {
         resultLabel.setText("");
 
         bindText();
+
+        updateLanguage();
     }
 
     private void bindText(){
@@ -175,19 +176,35 @@ public class MainController implements Initializable {
         calculateBtn.textProperty().bind(RESOURCE_FACTORY.getStringBinding("calculateBtn"));
         drawBtn.textProperty().bind(RESOURCE_FACTORY.getStringBinding("drawBtn"));
 
+        problemMenu.textProperty().bind(RESOURCE_FACTORY.getStringBinding("problemMenu"));
+        problem1MenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("problem1MenuItem"));
+        problem2MenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("problem2MenuItem"));
+
+
+
 
     }
 
     public void changeLanguage(ActionEvent actionEvent) {
-        if(actionEvent.getSource()==spanishMenuItem){
+        if(actionEvent.getSource()==spanishMenuItem)
+            prefs.put("DEFAULT_LANGUAGE","es");
+        else if(actionEvent.getSource()==englishMenuItem)
+            prefs.put("DEFAULT_LANGUAGE","en");
+
+        updateLanguage();
+
+
+    }
+
+    private void updateLanguage(){
+        String defaultLang = prefs.get("DEFAULT_LANGUAGE","es");
+
+        if(defaultLang.equals("es"))
             RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.forLanguageTag("es")));
 
-
-        }
-        else if(actionEvent.getSource()==englishMenuItem){
+        else if(defaultLang.equals("en"))
             RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.ROOT));
 
-        }
 
         initializaMethodBox();
 
@@ -196,8 +213,6 @@ public class MainController implements Initializable {
             lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
         else
             DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd);
-
-
 
     }
 
@@ -211,6 +226,10 @@ public class MainController implements Initializable {
         }
         else if(actionEvent.getSource()==darkThemeMenuItem){
             stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style.css").toString());
+        }
+        else if(actionEvent.getSource()==lightThemeMenuItem){
+            stage.getScene().getStylesheets().add(Main.class.getResource("resources/css/style2.css").toString());
+
         }
     }
 
@@ -227,28 +246,54 @@ public class MainController implements Initializable {
                         new Biseccion(RESOURCE_FACTORY),
                         new FalseRule(RESOURCE_FACTORY),
                         new PuntoFijo(RESOURCE_FACTORY),
-                        new NewtonRaphson(RESOURCE_FACTORY)
+                        new NewtonRaphson(RESOURCE_FACTORY),
+                        new Secante(RESOURCE_FACTORY)
                 );
         methodBox.setItems(options);
         methodBox.getSelectionModel().select(selectedItem);
 
-        listener = new ChangeListener<TableMethod>() {
-            @Override public void changed(ObservableValue value, TableMethod old, TableMethod newO) {
-                //Show your scene here
-                solveEnd.setDisable(false);
-                toSolveLabel.setDisable(false);
-                optionalObjects.clear();
-                optionalFields.getChildren().clear();
-                newO.initializeOptional(optionalFields,optionalObjects);
-                selectedItem = methodBox.getItems().indexOf(newO);
-                if(newO.getClass()==PuntoFijo.class||newO.getClass()==NewtonRaphson.class){
-                    solveEnd.setText("");
-                    solveEnd.setDisable(true);
-                    toSolveLabel.setDisable(true);
-                }
+        listener = (value, old, newO) -> {
+            //Show your scene here
+            solveEnd.setDisable(false);
+            toSolveLabel.setDisable(false);
+            optionalObjects.clear();
+            optionalFields.getChildren().clear();
+            newO.initializeOptional(optionalFields,optionalObjects);
+
+
+            selectedItem = methodBox.getItems().indexOf(newO);
+            if(newO.getClass()==PuntoFijo.class||newO.getClass()==NewtonRaphson.class){
+                solveEnd.setText("");
+                solveEnd.setDisable(true);
+                toSolveLabel.setDisable(true);
             }
         };
         methodBox.valueProperty().addListener(listener);
 
+    }
+
+    @FXML
+    public void showDescription(ActionEvent actionEvent) {
+        methodBox.getValue().showDescription();
+    }
+
+    @FXML
+    public void changeWindow(ActionEvent actionEvent) {
+        if(actionEvent.getSource()==problem1MenuItem){
+
+        }
+        if(actionEvent.getSource()==problem2MenuItem){
+            try{
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial2.fxml"));
+                Parent root = (Parent)loader.load();
+                Parcial2Controller mainController = (Parcial2Controller)loader.getController();
+                mainController.setStage(stage);
+                Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+                stage.setScene(scene);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

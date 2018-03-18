@@ -1,0 +1,61 @@
+.root {
+-fx-base: rgb(225, 87, 12);
+-fx-background: rgb(100, 45, 200);
+-fx-control-inner-background:  rgb(123, 132, 43);
+}
+
+.tab {
+-fx-background-color: linear-gradient(to top, -fx-base, derive(-fx-base,30%));
+}
+
+.menu-bar {
+-fx-background-color: linear-gradient(to bottom, -fx-base, derive(-fx-base,30%));
+}
+
+.tool-bar:horizontal {
+-fx-background-color:
+linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(-fx-base,-20%));
+}
+
+.button {
+-fx-background-color: rgb(60, 60, 60);
+}
+
+#calculateBtn{
+-fx-background-color: rgb(100, 150, 200);
+-fx-text-fill: white;
+}
+
+.default-color0.chart-series-line { -fx-stroke: rgb(101, 100, 23); }
+.default-color1.chart-series-line { -fx-stroke: yellow; }
+.default-color2.chart-series-line { -fx-stroke: brown; }
+
+.default-color0.chart-line-symbol { -fx-background-color: rgb(12, 3, 200), white; }
+.default-color1.chart-line-symbol { -fx-background-color: #f0e68c, white; }
+.default-color2.chart-line-symbol { -fx-background-color: #dda0dd, white; }
+
+.button:hover {
+-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+-fx-color: -fx-hover-base;
+}
+
+.table-view {
+-fx-table-cell-border-color:derive(-fx-base,+10%);
+-fx-table-header-border-color:derive(-fx-base,+20%);
+}
+
+.split-pane:horizontal > * > .split-pane-divider {
+-fx-border-color: transparent -fx-base transparent -fx-base;
+-fx-background-color: transparent, derive(-fx-base,20%);
+-fx-background-insets: 0, 0 1 0 1;
+}
+
+.my-gridpane {
+-fx-background-color: radial-gradient(radius 100%, derive(-fx-base,20%), derive(-fx-base,-20%));
+}
+
+.separator-label {
+-fx-text-fill: orange;
+}
+
+

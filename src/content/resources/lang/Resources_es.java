@@ -84,6 +84,19 @@ public class Resources_es extends ListResourceBundle{
                 {"falseRuleMethod", "Regla falsa"},
                 {"pointMethod", "Punto fijo"},
                 {"NewtonRaphsonMethod", "Newton Raphson"},
+                {"SecanteMethod", "Secante"},
+                //trabajo extra cu
+                {"descTitle", "Descripción del método"},
+                {"descBisectionHeader", "Bisección"},
+                {"descBisectionDescription", "El método de bisección en matemáticas es un método de búsqueda de raíces que divide un intervalo de forma repetida y luego selecciona un subintervalo en el que debe encontrarse una raíz para su posterior procesamiento. Es un método muy simple y robusto, pero también es relativamente lento. Debido a esto, a menudo se usa para obtener una aproximación aproximada a una solución que luego se usa como punto de partida para métodos convergentes más rápidos. El método también se conoce como el método de mitad de intervalo, el método de búsqueda binario, o el método de dicotomía."},
+                //menu types of methods
+                {"problemMenu","Tipos de métodos"},
+                {"problem1MenuItem", "Solución de ecuaciones"},
+                {"problem2MenuItem", "Solución de sistema de ecuaciones"},
+                //parcial2.fxm labels and buttons
+                {"selectMethodLabel","¿Qué método desea usar?"},
+                //gauss labels and buttons
+                {"numberOfEquationsLabel","¿De cuantas ecuaciones es el sistema? "}
 
 
         };

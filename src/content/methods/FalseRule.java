@@ -3,9 +3,11 @@ package content.methods;
 import content.Utilities.ObservableResourceFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import content.methods.model.BiseccionModel;
 
@@ -121,6 +123,17 @@ public class FalseRule extends TableMethod {
     @Override
     public String toString(){
         //return "Bisección";
-        return  RESOURCE_FACTORY.getResources().getString("bisectionMethod");
+        return  RESOURCE_FACTORY.getResources().getString("falseRuleMethod");
+    }
+
+    @Override
+    public void showDescription(){
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descFalseRulenHeader"));
+        info.setContentText(RESOURCE_FACTORY.getResources().getString("descFalseRuleDescription"));
+        info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        info.getDialogPane().setPrefWidth(650);
+        info.show();
     }
 }

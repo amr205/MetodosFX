@@ -15,4 +15,7 @@ public class TableMethod {
     public float doMethod(TableView table, float aInicial, float bInicial, float errorP, String ecuacion, ArrayList<Object> list){return 0;}
     public void initializeOptional(VBox vBox, ArrayList<Object> optionalObjects){}
     public boolean validateOptional(ObservableResourceFactory RESOURCE_FACTORY, ArrayList<Object> optionalObjects){ return true;}
+    public void showDescription(){
+        System.out.println("description");
+    };
 }

@@ -79,12 +79,25 @@ public class Resources extends ListResourceBundle{
                 //optionalFieldsErrors
                 {"equationDfxErrorHeader", "The equation f'(x) is not valid"},
                 //name of methods
-                //name of methods
                 {"bisectionMethod", "Bisection"},
                 {"falseRuleMethod", "False position"},
                 {"pointMethod", "Fixed point"},
                 {"NewtonRaphsonMethod", "Newton Raphson"},
-
+                {"SecanteMethod", "secante en english"},
+                //description of methods
+                {"descTitle", "Method description"},
+                {"descBisectionHeader", "Bisection"},
+                {"descBisectionDescription", "The bisection method in mathematics is a root-finding method that repeatedly bisects an interval and then selects a subinterval in which a root must lie for further processing. It is a very simple and robust method, but it is also relatively slow. Because of this, it is often used to obtain a rough approximation to a solution which is then used as a starting point for more rapidly converging methods.The method is also called the interval halving method, the binary search method,or the dichotomy method."},
+                {"descFalseRuleHeader", "False rule"},
+                {"descBisectionDescription", ""},
+                //menu types of methods
+                {"problemMenu","Type of methods"},
+                {"problem1MenuItem", "Solution to an equation"},
+                {"problem2MenuItem", "Solution to system of equations"},
+                //parcial2.fxm labels and buttons
+                {"selectMethodLabel","Select the method for solution"},
+                //Gauss labels and buttons
+                {"numberOfEquationsLabel","Enter the number of equations in the system: "}
 
         };
     }
