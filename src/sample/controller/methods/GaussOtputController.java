@@ -40,6 +40,8 @@ public class GaussOtputController implements Initializable {
         flowPane.getChildren().clear();
     }
     public void addIteration(double[][] A, double[] B){
+        //Este método se encarga de mostrar una iteración del método Gauss o Gauss Jordan
+
         HBox wrap = new HBox();
         Label itNum = new Label(currentIt+")");
         itNum.setFont(new Font(20));

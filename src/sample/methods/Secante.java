@@ -1,5 +1,7 @@
 package sample.methods;
 
+import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 import sample.Utilities.ObservableResourceFactory;
 import sample.methods.model.SecanteModel;
 import javafx.collections.FXCollections;
@@ -107,5 +109,16 @@ public class Secante extends TableMethod {
     public String toString(){
         //return "Bisección";
         return  RESOURCE_FACTORY.getResources().getString("SecanteMethod");
+    }
+
+    @Override
+    public void showDescription(){
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descSecanteHeader"));
+        info.setContentText(RESOURCE_FACTORY.getResources().getString("descSecanteDescription"));
+        info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        info.getDialogPane().setPrefWidth(650);
+        info.show();
     }
 }

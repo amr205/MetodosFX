@@ -127,5 +127,16 @@ public class PuntoFijo extends TableMethod{
             return false;
         }
     }
+
+    @Override
+    public void showDescription(){
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descFixedPointHeader"));
+        info.setContentText(RESOURCE_FACTORY.getResources().getString("descFixedPointDescription"));
+        info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        info.getDialogPane().setPrefWidth(650);
+        info.show();
+    }
 }
 

@@ -24,13 +24,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        //Asigna los resources a la resource factory encargada del idioma
         RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME));
 
-        double result = new ExpressionBuilder("x+y").variables("x","y").build().
-                setVariable("x",15).setVariable("y",6).evaluate();
-
-
+        //carga el último tipo de método abierto
+        //por ahora solución de ecuación o sistema de ecuaciones
         loadLastOpened(primaryStage);
 
 

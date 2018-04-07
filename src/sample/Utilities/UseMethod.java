@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class UseMethod {
     public static void calculateResult(ObservableResourceFactory RESOURCE_FACTORY, TableView table, Label resultLabel, TextField equationField, TextField solveStart, TextField solveEnd, TextField solveError, ComboBox methodBox, ArrayList<Object> list){
-
+        //Calcula el resultado de cualquiera de los métodos de primer parcial, realiza la validación de la mayoría de la entrada
         TableMethod method = (TableMethod)methodBox.getValue();
         boolean isCorrect = true;
         float initA, initB, errorP;

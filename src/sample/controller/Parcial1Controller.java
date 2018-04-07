@@ -86,12 +86,15 @@ public class Parcial1Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //init resource factory
+        //Obtener la resource factory mediante la cual podemos obtener el texto de acuerdo al idioma
         RESOURCE_FACTORY = Main.RESOURCE_FACTORY;
         RESOURCE_NAME = Main.RESOURCE_NAME;
 
         //create list for optional objects for different methods
+        //Crear un ArrayList sobre el cual se guardarán objetos opcionales
         optionalObjects = new ArrayList<Object>();
 
+        //Propiedades para mantener el aspecto en la aplicación
         leftPane.maxWidthProperty().set(600);
         leftPane.minWidthProperty().set(10);
         centerContent.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> splitPane.setDividerPosition(0,600));
@@ -107,9 +110,7 @@ public class Parcial1Controller implements Initializable {
     public void reset(){
 
         lineChart.setTitle(RESOURCE_FACTORY.getResources().getString("insertInput"));
-
         lineChart.getData().clear();
-
         methodTable.getColumns().clear();
 
         methodBox.getSelectionModel().selectFirst();
@@ -162,6 +163,7 @@ public class Parcial1Controller implements Initializable {
     }
 
     private void initializaMethodBox(){
+        //se hacen distintas cosas para además de inicializar el comboBox se actualizen los nombres según el idioma
         if(listener!=null)
             methodBox.valueProperty().removeListener(listener);
         methodBox.getItems().clear();
@@ -177,7 +179,7 @@ public class Parcial1Controller implements Initializable {
         methodBox.getSelectionModel().select(selectedItem);
 
         listener = (value, old, newO) -> {
-            //Show your scene here
+
             solveEnd.setDisable(false);
             toSolveLabel.setDisable(false);
             optionalObjects.clear();
@@ -208,8 +210,6 @@ public class Parcial1Controller implements Initializable {
     protected void calculateResult(){
         if(DrawView.drawEquation(RESOURCE_FACTORY,lineChart,equationField,drawStart,drawEnd))
             UseMethod.calculateResult(RESOURCE_FACTORY,methodTable,resultLabel,equationField,solveStart,solveEnd,errorField,methodBox,optionalObjects);
-
-
     }
 
     @FXML
@@ -224,8 +224,6 @@ public class Parcial1Controller implements Initializable {
             prefs.put("DEFAULT_LANGUAGE","en");
 
         updateLanguage();
-
-
     }
 
     @FXML

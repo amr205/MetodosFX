@@ -130,7 +130,7 @@ public class FalseRule extends TableMethod {
     public void showDescription(){
         Alert info = new Alert(Alert.AlertType.INFORMATION);
         info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descFalseRulenHeader"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descFalseRuleHeader"));
         info.setContentText(RESOURCE_FACTORY.getResources().getString("descFalseRuleDescription"));
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);

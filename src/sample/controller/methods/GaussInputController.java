@@ -59,18 +59,6 @@ public class GaussInputController implements Initializable{
         currentText = "";
 
         bindText();
-        //updateLanguage();
-    }
-
-    public void updateLanguage() {
-        String defaultLang = prefs.get("DEFAULT_LANGUAGE","es");
-
-        if(defaultLang.equals("es"))
-            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.forLanguageTag("es")));
-
-        else if(defaultLang.equals("en"))
-            RESOURCE_FACTORY.setResources(ResourceBundle.getBundle(RESOURCE_NAME, Locale.ROOT));
-
     }
 
     private void bindText(){
@@ -80,6 +68,7 @@ public class GaussInputController implements Initializable{
 
     @FXML
     public void createFields() {
+        //Obtiene el número de ecuaciones a insertar
         try{
             n = Integer.parseInt(numberField.getText());
 
@@ -101,6 +90,8 @@ public class GaussInputController implements Initializable{
             error.show();
             return;
         }
+
+        //De introducir un valor correcto borrar los input anteriores
         bottomPane.getChildren().clear();
         equationsCoeficients = new double[n][n];
         equationsEqualities = new double[n];
@@ -112,6 +103,7 @@ public class GaussInputController implements Initializable{
         root.setPadding(new Insets(10));
 
 
+        //Insertar los nuevos labels y textFields
         VBox box = new VBox(10);
         for(int i=0;i<n;i++)
             box.getChildren().addAll(getEquationRow(equationsField,i), new Separator());
@@ -141,6 +133,7 @@ public class GaussInputController implements Initializable{
     }
 
     public void calculate(ActionEvent actionEvent) {
+        //si ya existen los textfields para introducir ecuacion, validar que la entrada sea correcta y guardar los valores en Arrays
         if(areFields&&currentText.equals(numberField.getText())){
             try {
                 for (int y = 0; y < equationsField.length; y++) {
@@ -168,6 +161,7 @@ public class GaussInputController implements Initializable{
                 System.out.println(e.getMessage()+"  "+e.toString()+"   "+e.getLocalizedMessage()+"  ");
             }
             try {
+                //tratar de obtener una solución mediante el método actual
                 gauss.solve(equationsCoeficients, equationsEqualities);
             }catch (Exception e){
 

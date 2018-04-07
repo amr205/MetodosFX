@@ -61,9 +61,12 @@ public class Parcial2Controller implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //init resource factory
+        //Obtener la resource factory mediante la cual podemos obtener el texto de acuerdo al idioma
         RESOURCE_FACTORY = Main.RESOURCE_FACTORY;
         RESOURCE_NAME = Main.RESOURCE_NAME;
 
+        //Propiedades para mantener el aspecto en la aplicación
         leftPane.maxWidthProperty().set(600);
         leftPane.minWidthProperty().set(10);
         centerContent.widthProperty().addListener(new ChangeListener<Number>() {
@@ -118,6 +121,7 @@ public class Parcial2Controller implements Initializable{
 
     @FXML
     public void changeWindow(ActionEvent actionEvent) {
+        //Cambiar entre las ventanas para distintas secciones de métodos númericos
         if(actionEvent.getSource()==problem1MenuItem) {
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial1.fxml"));

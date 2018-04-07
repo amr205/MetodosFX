@@ -1,5 +1,7 @@
 package sample.methods2;
 
+import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 import sample.Utilities.ObservableResourceFactory;
 
 public class GaussJordan extends Gauss{
@@ -18,10 +20,10 @@ public class GaussJordan extends Gauss{
             B[y]=matriz[y][matriz.length];
         }
 
-        printRowEchelonForm(A,B);
+        outputController.addIteration(A,B);
     }
 
-    private void pivote(double matriz[][], int piv, int var) {
+    private void pivot(double matriz[][], int piv, int var) {
         double temp = 0;
         temp = matriz[piv][piv];
         for (int y = 0; y < (var + 1); y++) {
@@ -30,7 +32,7 @@ public class GaussJordan extends Gauss{
         }
     }
 
-    private void hacerceros(double matriz[][], int piv, int var) {
+    private void makeCeros(double matriz[][], int piv, int var) {
         for (int x = 0; x < var; x++) {
             if (x != piv) {
                 double c = matriz[x][piv];
@@ -69,18 +71,12 @@ public class GaussJordan extends Gauss{
         //for(int i=0;i<var;i++)
 
         for (int a = 0; a < var; a++) {
-            pivote(matriz, piv, var);
-
-            System.out.println("\tRenglon " + (a + 1) + " entre el pivote");
+            pivot(matriz, piv, var);
+            //meter renglon a pivote
             muestramatriz(matriz, var);
+            //hacer ceros
+            makeCeros(matriz, piv, var);
 
-            System.out.println("");
-
-            System.out.println("\tHaciendo ceros");
-            hacerceros(matriz, piv, var);
-
-
-            System.out.println("");
             piv++;
         }
         inputController.startResult();
@@ -95,5 +91,17 @@ public class GaussJordan extends Gauss{
     public String toString(){
         return "Gauss Jordan";
     }
+
+    @Override
+    public void showInfo() {
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
+        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussJordanHeader"));
+        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussJordanDescription"));
+        info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        info.getDialogPane().setPrefWidth(650);
+        info.show();
+    }
+
 
 }

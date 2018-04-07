@@ -10,7 +10,7 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class DrawView {
     public static boolean drawEquation(ObservableResourceFactory RESOURCE_FACTORY, LineChart lineChart, TextField equationField, TextField drawStart, TextField drawEnd){
-
+        //Este método se encarga de dibujar la ecuación haciendo uso de un lineChart de javaFx
         Expression expression;
         float drawS, drawE;
         drawS =0;
