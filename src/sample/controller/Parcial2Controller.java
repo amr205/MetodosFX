@@ -2,9 +2,7 @@ package sample.controller;
 
 import sample.Main;
 import sample.Utilities.ObservableResourceFactory;
-import sample.methods2.Gauss;
-import sample.methods2.GaussJordan;
-import sample.methods2.ParentMethod;
+import sample.methods2.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -58,6 +56,9 @@ public class Parcial2Controller implements Initializable{
     //METHODS
     private Gauss gauss;
     private GaussJordan gaussJordan;
+    private Jacobi jacobi;
+    private GaussSeidel seidel;
+    private NewtonRaphsonMultivar newton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,6 +78,9 @@ public class Parcial2Controller implements Initializable{
 
         gauss = new Gauss(RESOURCE_FACTORY);
         gaussJordan = new GaussJordan(RESOURCE_FACTORY);
+        jacobi = new Jacobi(RESOURCE_FACTORY);
+        seidel = new GaussSeidel(RESOURCE_FACTORY);
+        newton = new NewtonRaphsonMultivar(RESOURCE_FACTORY);
 
         reset();
 
@@ -208,7 +212,10 @@ public class Parcial2Controller implements Initializable{
         ObservableList<ParentMethod> options =
                 FXCollections.observableArrayList(
                         gauss,
-                        gaussJordan
+                        gaussJordan,
+                        jacobi,
+                        seidel,
+                        newton
                 );
 
         methodBox.setItems(options);

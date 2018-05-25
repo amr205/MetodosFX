@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controller.methods.NewtonRMInputController"
+            prefHeight="400.0" prefWidth="600.0"
+            fx:id="mainPane">
+
+    <VBox spacing="15">
+        <Label text="Graficar"/>
+        <LineChart prefHeight="350" createSymbols="false" fx:id="lineChart">
+            <xAxis>
+                <NumberAxis side="BOTTOM" forceZeroInRange="false"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis side="LEFT" forceZeroInRange="false"/>
+            </yAxis>
+        </LineChart>
+        <HBox spacing="15">
+            <Label text="Dibujar desde: "/>
+            <TextField fx:id="drawS" HBox.hgrow="ALWAYS"/>
+            <Label text="hasta"/>
+            <TextField fx:id="drawE" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Ecuación para grafica 1 y= "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="equationG1"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Ecuación 2 para grafica y= "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="equationG2"/>
+        </HBox>
+        <Separator/>
+        <HBox spacing="15">
+            <Label text="Error: "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="error"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Ecuación: "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="equation1"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Ecuación 2:"/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="equation2"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Derivada Parcial E1x: "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="derivE1x"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Derivada Parcial E1y "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="derivE1y"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Derivada Parcial E2x"/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="derivE2x"/>
+        </HBox>
+        <HBox spacing="15">
+            <Label text="Derivada Parcial E2y "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="derivE2y"/>
+        </HBox>
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="graficar" fx:id="graphicButton" onMouseClicked="#graphic"></Button>
+            <Button text="resolver" fx:id="solutionButton" onMouseClicked="#solve"></Button>
+        </HBox>
+    </VBox>
+
+</AnchorPane>

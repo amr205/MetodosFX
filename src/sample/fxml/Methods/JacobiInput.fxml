@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controller.methods.JacobiInputController"
+            prefHeight="400.0" prefWidth="600.0" fx:id="mainPane">
+    <VBox>
+        <HBox>
+            <Label text="Inserte el error para las ecuaciones: "/>
+            <TextField fx:id="errorField"></TextField>
+        </HBox>
+        <HBox spacing="15" prefHeight="65" alignment="CENTER_LEFT">
+            <Label text="¿De cuantas ecuaciones es el sistema?" fx:id="numberOfEquationsLabel"/>
+            <TextField fx:id="numberField" prefWidth="70"/>
+            <Button fx:id="numberButton" onAction="#createFields" prefHeight="35">
+                <graphic>
+                    <MaterialDesignIconView glyphName="ARROW_RIGHT_BOLD" fill="cornflowerblue" glyphSize="25"/>
+                </graphic>
+            </Button>
+            <Button fx:id="calculateBtn" text="Resolver" onAction="#calculate" prefHeight="35" defaultButton="true"/>
+        </HBox>
+
+        <AnchorPane fx:id="bottomPane">
+
+        </AnchorPane>
+        <VBox fx:id="resultBox">
+
+        </VBox>
+    </VBox>
+</AnchorPane>
