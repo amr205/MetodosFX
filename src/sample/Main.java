@@ -3,6 +3,7 @@ package sample;
 import sample.Utilities.ObservableResourceFactory;
 import sample.controller.Parcial1Controller;
 import sample.controller.Parcial2Controller;
+import sample.controller.Parcial3Controller;
 import sample.resources.lang.Resources;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -43,8 +44,25 @@ public class Main extends Application {
             loadWindow1(primaryStage);
         else if(window==2)
             loadWindow2(primaryStage);
+        else if(window==3)
+            loadWindow3(primaryStage);
         else
             loadWindow1(primaryStage);
+    }
+
+    private void loadWindow3(Stage primaryStage) throws Exception {
+        FXMLLoader loader;
+        loader =  new FXMLLoader(Main.class.getResource("fxml/Parcial3.fxml"));
+        Parent root = (Parent)loader.load();
+        Parcial3Controller mainController = (Parcial3Controller) loader.getController();
+        primaryStage.setTitle("MétodosFX");
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/icon.png")));
+        Scene scene = new Scene(root, 1200, 800);
+        primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
+        primaryStage.show();
+
+        mainController.setStage(primaryStage);
     }
 
     private void loadWindow2(Stage primaryStage) throws Exception{

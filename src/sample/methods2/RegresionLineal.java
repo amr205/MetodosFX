@@ -10,18 +10,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import sample.Main;
 import sample.Utilities.ObservableResourceFactory;
-import sample.controller.methods.GaussInputController;
-import sample.controller.methods.GaussOtputController;
 import sample.controller.methods.JacobiOtputController;
 import sample.controller.methods.NewtonRMInputController;
-import sample.methods.model.BiseccionModel;
+import sample.controller.methods.RegresionLinealInputController;
 import sample.methods.model.NewtonRapsonMultivarModel;
 
-public class NewtonRaphsonMultivar extends ParentMethod{
-    protected NewtonRMInputController inputController;
+public class RegresionLineal extends ParentMethod{
+    protected RegresionLinealInputController inputController;
     protected JacobiOtputController outputController;
 
-    public NewtonRaphsonMultivar(ObservableResourceFactory RESOURCE_FACTORY) {
+    public RegresionLineal(ObservableResourceFactory RESOURCE_FACTORY) {
         super(RESOURCE_FACTORY);
     }
 
@@ -29,9 +27,9 @@ public class NewtonRaphsonMultivar extends ParentMethod{
     public void initialize(AnchorPane inputSection, AnchorPane outputSection) {
         //Añadir a la ventana la seccion de input y output
         try {
-            FXMLLoader inputLoader = new FXMLLoader(Main.class.getResource("fxml/Methods/NewtonRMInput.fxml"));
+            FXMLLoader inputLoader = new FXMLLoader(Main.class.getResource("fxml/Methods/RegresionLinealInput.fxml"));
             Parent inputRoot =  inputLoader.load();
-            NewtonRMInputController inputController = (NewtonRMInputController) inputLoader.getController();
+            RegresionLinealInputController inputController = (RegresionLinealInputController) inputLoader.getController();
             inputSection.getChildren().setAll(inputRoot);
 
             FXMLLoader outputLoader = new FXMLLoader(Main.class.getResource("fxml/Methods/JacobiOutput.fxml"));
@@ -39,8 +37,7 @@ public class NewtonRaphsonMultivar extends ParentMethod{
             JacobiOtputController outputController = (JacobiOtputController) outputLoader.getController();
             outputSection.getChildren().setAll(outputRoot);
 
-            inputController.setRESOURCE_FACTORY(RESOURCE_FACTORY);
-            inputController.setNewton(this);
+
 
             this.inputController = inputController;
             this.outputController = outputController;
@@ -118,6 +115,6 @@ public class NewtonRaphsonMultivar extends ParentMethod{
 
     @Override
     public String toString(){
-        return "Newton Raphson Multivariable";
+        return "Regresion lineal";
     }
 }

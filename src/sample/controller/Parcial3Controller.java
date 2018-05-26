@@ -1,8 +1,5 @@
 package sample.controller;
 
-import sample.Main;
-import sample.Utilities.ObservableResourceFactory;
-import sample.methods2.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,13 +13,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sample.Main;
+import sample.Utilities.ObservableResourceFactory;
+import sample.methods2.*;
 
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class Parcial2Controller implements Initializable{
+public class Parcial3Controller implements Initializable{
 
 
     @FXML
@@ -41,7 +41,7 @@ public class Parcial2Controller implements Initializable{
     Label selectMethodLabel;
 
     @FXML
-    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
+    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
 
     private String RESOURCE_NAME;
     private ObservableResourceFactory RESOURCE_FACTORY;
@@ -54,12 +54,7 @@ public class Parcial2Controller implements Initializable{
 
 
     //METHODS
-    private Gauss gauss;
-    private GaussJordan gaussJordan;
-    private Jacobi jacobi;
-    private GaussSeidel seidel;
-    private NewtonRaphsonMultivar newton;
-
+    private RegresionLineal regresionLineal;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,15 +72,11 @@ public class Parcial2Controller implements Initializable{
             }
         });
 
-        gauss = new Gauss(RESOURCE_FACTORY);
-        gaussJordan = new GaussJordan(RESOURCE_FACTORY);
-        jacobi = new Jacobi(RESOURCE_FACTORY);
-        seidel = new GaussSeidel(RESOURCE_FACTORY);
-        newton = new NewtonRaphsonMultivar(RESOURCE_FACTORY);
+        regresionLineal = new RegresionLineal(RESOURCE_FACTORY);
 
         reset();
 
-        prefs.putInt("LAST_WINDOW",2);
+        prefs.putInt("LAST_WINDOW",3);
 
     }
     
@@ -127,6 +118,9 @@ public class Parcial2Controller implements Initializable{
     @FXML
     public void changeWindow(ActionEvent actionEvent) {
         //Cambiar entre las ventanas para distintas secciones de métodos númericos
+        if(actionEvent.getSource()==problem3MenuItem){
+
+        }
         if(actionEvent.getSource()==problem1MenuItem) {
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial1.fxml"));
@@ -138,6 +132,19 @@ public class Parcial2Controller implements Initializable{
 
 
             } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if(actionEvent.getSource()==problem2MenuItem){
+            try{
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial2.fxml"));
+                Parent root = (Parent)loader.load();
+                Parcial2Controller mainController = (Parcial2Controller)loader.getController();
+                Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+                stage.setScene(scene);
+                mainController.setStage(stage);
+
+            }catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }
@@ -212,11 +219,7 @@ public class Parcial2Controller implements Initializable{
         methodBox.getItems().clear();
         ObservableList<ParentMethod> options =
                 FXCollections.observableArrayList(
-                        gauss,
-                        gaussJordan,
-                        jacobi,
-                        seidel,
-                        newton
+                        regresionLineal
                 );
 
         methodBox.setItems(options);

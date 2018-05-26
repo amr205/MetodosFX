@@ -67,7 +67,7 @@ public class Parcial1Controller implements Initializable {
     Button calculateBtn, howBtn, drawBtn;
 
     @FXML
-    MenuItem spanishMenuItem, englishMenuItem, closeMenuItem, newFileMenuItem, defaultThemeMenuItem, darkThemeMenuItem, lightThemeMenuItem, problem1MenuItem, problem2MenuItem;
+    MenuItem spanishMenuItem, englishMenuItem, closeMenuItem, newFileMenuItem, defaultThemeMenuItem, darkThemeMenuItem, lightThemeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem;
 
     @FXML
     Menu fileMenu, languageMenu, styleMenu, problemMenu;
@@ -318,6 +318,20 @@ public class Parcial1Controller implements Initializable {
                 mainController.setStage(stage);
 
             }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        else if(actionEvent.getSource()==problem3MenuItem) {
+            try {
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial3.fxml"));
+                Parent root = (Parent) loader.load();
+                Parcial3Controller mainController = (Parcial3Controller) loader.getController();
+                Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+                stage.setScene(scene);
+                mainController.setStage(stage);
+
+
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }

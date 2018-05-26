@@ -8,13 +8,16 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.controller.methods.NewtonRMInputController"
-            prefHeight="400.0" prefWidth="600.0"
             fx:id="mainPane">
 
-    <VBox spacing="15">
+    <VBox spacing="15" maxWidth="550">
+        <padding>
+            <Insets topRightBottomLeft="10"></Insets>
+        </padding>
         <Label text="Graficar"/>
         <LineChart prefHeight="350" createSymbols="false" fx:id="lineChart">
             <xAxis>
@@ -25,9 +28,9 @@
             </yAxis>
         </LineChart>
         <HBox spacing="15">
-            <Label text="Dibujar desde: "/>
+            <Label text="Dibujar desde: " HBox.hgrow="ALWAYS"/>
             <TextField fx:id="drawS" HBox.hgrow="ALWAYS"/>
-            <Label text="hasta"/>
+            <Label text="hasta" HBox.hgrow="ALWAYS"/>
             <TextField fx:id="drawE" HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox spacing="15">
@@ -40,8 +43,12 @@
         </HBox>
         <Separator/>
         <HBox spacing="15">
-            <Label text="Error: "/>
-            <TextField HBox.hgrow="ALWAYS" fx:id="error"/>
+            <Label text="Error: " HBox.hgrow="ALWAYS"/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="error" prefWidth="70"/>
+            <Label text="Inicio x: " HBox.hgrow="ALWAYS"/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="startX" prefWidth="70"/>
+            <Label text="Inicio y: " HBox.hgrow="ALWAYS"/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="startY" prefWidth="70"/>
         </HBox>
         <HBox spacing="15">
             <Label text="Ecuación: "/>
@@ -73,4 +80,4 @@
         </HBox>
     </VBox>
 
-</AnchorPane>
+</VBox>

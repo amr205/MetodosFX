@@ -41,7 +41,7 @@ public class Parcial2Controller implements Initializable{
     Label selectMethodLabel;
 
     @FXML
-    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
+    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
 
     private String RESOURCE_NAME;
     private ObservableResourceFactory RESOURCE_FACTORY;
@@ -59,6 +59,7 @@ public class Parcial2Controller implements Initializable{
     private Jacobi jacobi;
     private GaussSeidel seidel;
     private NewtonRaphsonMultivar newton;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -126,11 +127,28 @@ public class Parcial2Controller implements Initializable{
     @FXML
     public void changeWindow(ActionEvent actionEvent) {
         //Cambiar entre las ventanas para distintas secciones de métodos númericos
+        if(actionEvent.getSource()==problem2MenuItem){
+
+        }
         if(actionEvent.getSource()==problem1MenuItem) {
             try {
                 FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial1.fxml"));
                 Parent root = (Parent) loader.load();
                 Parcial1Controller mainController = (Parcial1Controller) loader.getController();
+                Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
+                stage.setScene(scene);
+                mainController.setStage(stage);
+
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        else if(actionEvent.getSource()==problem3MenuItem) {
+            try {
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/Parcial3.fxml"));
+                Parent root = (Parent) loader.load();
+                Parcial3Controller mainController = (Parcial3Controller) loader.getController();
                 Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
                 stage.setScene(scene);
                 mainController.setStage(stage);
