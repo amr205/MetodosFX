@@ -1,5 +1,8 @@
 package sample.methods2;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -10,14 +13,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import sample.Main;
 import sample.Utilities.ObservableResourceFactory;
-import sample.controller.methods.JacobiOtputController;
-import sample.controller.methods.NewtonRMInputController;
-import sample.controller.methods.RegresionLinealInputController;
+import sample.controller.methods.*;
 import sample.methods.model.NewtonRapsonMultivarModel;
+import sample.methods.model.RegresionLinealModel1;
+import sample.methods.model.RegresionLinealModel2;
 
 public class RegresionLineal extends ParentMethod{
     protected RegresionLinealInputController inputController;
-    protected JacobiOtputController outputController;
+    protected RegresionLinealOutputController outputController;
 
     public RegresionLineal(ObservableResourceFactory RESOURCE_FACTORY) {
         super(RESOURCE_FACTORY);
@@ -32,12 +35,12 @@ public class RegresionLineal extends ParentMethod{
             RegresionLinealInputController inputController = (RegresionLinealInputController) inputLoader.getController();
             inputSection.getChildren().setAll(inputRoot);
 
-            FXMLLoader outputLoader = new FXMLLoader(Main.class.getResource("fxml/Methods/JacobiOutput.fxml"));
+            FXMLLoader outputLoader = new FXMLLoader(Main.class.getResource("fxml/Methods/RegresionLinealOutput.fxml"));
             Parent outputRoot = (Parent) outputLoader.load();
-            JacobiOtputController outputController = (JacobiOtputController) outputLoader.getController();
+            RegresionLinealOutputController outputController = (RegresionLinealOutputController) outputLoader.getController();
             outputSection.getChildren().setAll(outputRoot);
 
-
+            inputController.setRegresionLineal(this);
 
             this.inputController = inputController;
             this.outputController = outputController;
@@ -48,53 +51,82 @@ public class RegresionLineal extends ParentMethod{
         }
     }
 
+    public void solve(float [] x,float [] y, int n,float X){
+        TableView table1 = outputController.getTable1();
+        TableView table2 = outputController.getTable2();
+
+        ObservableList<RegresionLinealModel1> model1 = FXCollections.observableArrayList();
+        ObservableList<RegresionLinealModel2> model2 = FXCollections.observableArrayList();
+
+
+
+        float [][] values=new float[n][4];
+        String ecu;
+        float sx=0,sy=0,sxy=0,sx2=0,st=0,sr=0,xm=0,ym=0,a1,a0,r=0,Y=0;
+
+        for(int i=0;i<n;i++){
+            sy+=y[i];
+            sx+=x[i];
+            values[i][0]=x[i]*y[i];
+            sxy+=x[i]*y[i];
+            values[i][1]=x[i]*x[i];
+            sx2+=x[i]*x[i];
+
+            model1.add(new RegresionLinealModel1(""+x[i],""+y[i],""+values[i][0],""+ values[i][1]));
+
+        }
+
+        model1.add(new RegresionLinealModel1("Suma "+sx,"Suma "+sy,"Suma "+sxy,"Suma "+sx2));
+
+
+        xm=sx/n;
+        ym=sy/n;
+
+        a1=(n*sxy-sx*sy)/(n*sx2-(sx*sx));
+        a0=ym-a1*xm;
+
+        ecu="y="+a0+" + "+a1+"x";
+        System.out.println(ecu);
+        inputController.setEquation(ecu);
+        Y=a0+a1*X;
+        System.out.println(Y);
+        inputController.setY(""+Y);
+
+        for(int j=0;j<n;j++){
+
+            values[j][2]=(y[j]-ym)*(y[j]-ym);
+            st+=(y[j]-ym)*(y[j]-ym);
+            values[j][3]=(y[j]-a0-a1*x[j])*(y[j]-a0-a1*x[j]);
+            sr+=(y[j]-a0-a1*x[j])*(y[j]-a0-a1*x[j]);
+
+            model2.add(new RegresionLinealModel2(""+values[j][2],""+values[j][3]));
+
+        }
+
+        model2.add(new RegresionLinealModel2("Suma "+st,"Suma "+sr));
+
+
+        r=(float)Math.sqrt((st-sr)/st);
+        System.out.println(r);
+        inputController.setR(""+r);
+
+        table1.setItems(model1);
+        table2.setItems(model2);
+
+
+
+    }
+
     public void initTable(){
-        TableView table = outputController.getTable();
-        table.getItems().clear();
-        table.getColumns().clear();
 
-        TableColumn column = new TableColumn("no");
-        column.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("no"));
+        TableView table1 = outputController.getTable1();
+        TableView table2 = outputController.getTable2();
 
-        TableColumn column1 = new TableColumn("x");
-        column1.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("x"));
+        table1.getItems().clear();
+        table1.getColumns().clear();
 
-        TableColumn column2 = new TableColumn("y");
-        column2.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("y"));
-
-        TableColumn column3 = new TableColumn("f1");
-        column3.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("f1"));
-
-        TableColumn column4 = new TableColumn("f2");
-        column4.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("f2"));
-
-        TableColumn column5 = new TableColumn("df1x");
-        column5.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("df1x"));
-
-        TableColumn column6 = new TableColumn("df1y");
-        column6.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("df1y"));
-
-        TableColumn column7 = new TableColumn("df2x");
-        column7.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("df2x"));
-
-        TableColumn column8 = new TableColumn("df2y");
-        column8.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("df2y"));
-
-        TableColumn column9 = new TableColumn("deltaX");
-        column9.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("deltaX"));
-
-        TableColumn column10 = new TableColumn("deltaY");
-        column10.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("deltaY"));
-
-        TableColumn column11 = new TableColumn("error X");
-        column11.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("eX"));
-
-        TableColumn column12 = new TableColumn("error Y");
-        column12.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("eY"));
-
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        table.getColumns().addAll(column,column1,column2, column3,column4, column5, column6, column7, column8,column9,column10,column11,column12);
+        table2.getItems().clear();
+        table2.getColumns().clear();
 
     }
 

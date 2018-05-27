@@ -41,7 +41,7 @@ public class Parcial3Controller implements Initializable{
     Label selectMethodLabel;
 
     @FXML
-    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
+    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
 
     private String RESOURCE_NAME;
     private ObservableResourceFactory RESOURCE_FACTORY;
@@ -55,6 +55,7 @@ public class Parcial3Controller implements Initializable{
 
     //METHODS
     private RegresionLineal regresionLineal;
+    private RegresionPoli regresionPoli;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,6 +74,7 @@ public class Parcial3Controller implements Initializable{
         });
 
         regresionLineal = new RegresionLineal(RESOURCE_FACTORY);
+        regresionPoli = new RegresionPoli(RESOURCE_FACTORY);
 
         reset();
 
@@ -94,7 +96,6 @@ public class Parcial3Controller implements Initializable{
 
     private void bindText(){
         spanishMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("spanishMenuItem"));
-        englishMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("englishMenuItem"));
         closeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("closeMenuItem"));
         newFileMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("newFileMenuItem"));
         defaultThemeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("defaultThemeMenuItem"));
@@ -153,8 +154,7 @@ public class Parcial3Controller implements Initializable{
     public void changeLanguage(ActionEvent actionEvent) {
         if(actionEvent.getSource()==spanishMenuItem)
             prefs.put("DEFAULT_LANGUAGE","es");
-        else if(actionEvent.getSource()==englishMenuItem)
-            prefs.put("DEFAULT_LANGUAGE","en");
+
 
         updateLanguage();
 
@@ -219,7 +219,8 @@ public class Parcial3Controller implements Initializable{
         methodBox.getItems().clear();
         ObservableList<ParentMethod> options =
                 FXCollections.observableArrayList(
-                        regresionLineal
+                        regresionLineal,
+                        regresionPoli
                 );
 
         methodBox.setItems(options);

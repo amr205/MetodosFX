@@ -61,7 +61,7 @@ public class Jacobi extends ParentMethod{
     }
 
 
-    public void solve(double[][] A, double[] B) {
+    public void solve(double[][] A, double[] B, double error) {
         try {
 
             addTableModel(B.length);
@@ -102,7 +102,7 @@ public class Jacobi extends ParentMethod{
                 n++;
 
 
-            } while (!errorValidity(e, 0.001));
+            } while (!errorValidity(e, error));
 
             System.out.println(Arrays.toString(xn));
         }catch (Exception e){

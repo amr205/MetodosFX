@@ -39,7 +39,7 @@
                 <MenuItem text="Aproximación funcional" onAction="#changeWindow" fx:id="problem3MenuItem"/>
             </Menu>
             <Menu fx:id="languageMenu" text="Language">
-                <MenuItem text="English" onAction="#changeLanguage" fx:id="englishMenuItem"/>
+
                 <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="spanishMenuItem"/>
             </Menu>
             <Menu fx:id="styleMenu" text="Language">

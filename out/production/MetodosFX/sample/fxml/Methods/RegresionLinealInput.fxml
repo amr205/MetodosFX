@@ -13,34 +13,19 @@
       fx:controller="sample.controller.methods.RegresionLinealInputController"
       fx:id="mainPane">
 
-    <VBox spacing="15" maxWidth="550">
-        <padding>
-            <Insets topRightBottomLeft="10"></Insets>
-        </padding>
-        <TableView prefWidth="550" fx:id="dataTable" editable="true" >
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-            <columns>
-                <TableColumn text="x" >
-                    <cellValueFactory>
-                        <PropertyValueFactory property="x" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn text="y" >
-                    <cellValueFactory>
-                        <PropertyValueFactory property="x" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-
-        </TableView>
-
-        <HBox spacing="15" alignment="CENTER_RIGHT">
+    <VBox spacing="15" maxWidth="530">
+        <HBox spacing="15" >
             <Button text="-" onMouseClicked="#removeRow"/>
             <Button text="+" onMouseClicked="#addRow"/>
-            <Button text="Obtener ecuación" onMouseClicked="#getEquation"/>
         </HBox>
+        <padding>
+            <Insets topRightBottomLeft="10"/>
+        </padding>
+        <VBox fx:id="dataVBox" spacing="7" minWidth="530">
+
+        </VBox>
+
+
         <Separator/>
         <HBox spacing="15">
             <Label text="Evaluar funcion x= "/>
@@ -48,6 +33,20 @@
         </HBox>
         <HBox spacing="15" alignment="CENTER_RIGHT">
             <Button text="Evaluar" onMouseClicked="#evaluate"/>
+        </HBox>
+        <Separator/>
+        <Label text="Resultados"/>
+        <HBox spacing="10">
+            <Label text="Ecuacion: "/>
+            <Label fx:id="equationLabel"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="R= "/>
+            <Label fx:id="rLabel"/>
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Y= "/>
+            <Label fx:id="yLabel"/>
         </HBox>
     </VBox>
 

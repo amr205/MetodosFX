@@ -158,7 +158,7 @@ public class NewtonRaphsonMultivar extends ParentMethod{
 
                 data.add(new NewtonRapsonMultivarModel(Integer.toString(n),String.format("%.6f", x),String.format("%.6f", y),String.format("%.6f", e1),
                         String.format("%.6f", e2), String.format("%.6f", e1x), String.format("%.6f", e1y),String.format("%.6f", e2x),String.format("%.6f", e2y),String.format("%.6f", DxDouble),
-                        String.format("%.6f", DyDouble), String.format("%.6f", erx), String.format("%.6f", ery)));
+                        String.format("%.6f", DyDouble), String.format("%.6f", erxDouble), String.format("%.6f", eryDouble)));
             }
             else
             {
@@ -222,10 +222,10 @@ public class NewtonRaphsonMultivar extends ParentMethod{
         column10.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("deltaY"));
 
         TableColumn column11 = new TableColumn("error X");
-        column11.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("eX"));
+        column11.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("ex"));
 
         TableColumn column12 = new TableColumn("error Y");
-        column12.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("eY"));
+        column12.setCellValueFactory(new PropertyValueFactory<NewtonRapsonMultivarModel,String>("ey"));
 
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 

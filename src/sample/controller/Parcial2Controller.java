@@ -41,7 +41,7 @@ public class Parcial2Controller implements Initializable{
     Label selectMethodLabel;
 
     @FXML
-    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem,englishMenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
+    MenuItem newFileMenuItem, closeMenuItem, problem1MenuItem, problem2MenuItem, problem3MenuItem,spanishMenuItem,defaultThemeMenuItem,darkThemeMenuItem,lightThemeMenuItem;
 
     private String RESOURCE_NAME;
     private ObservableResourceFactory RESOURCE_FACTORY;
@@ -103,7 +103,6 @@ public class Parcial2Controller implements Initializable{
 
     private void bindText(){
         spanishMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("spanishMenuItem"));
-        englishMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("englishMenuItem"));
         closeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("closeMenuItem"));
         newFileMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("newFileMenuItem"));
         defaultThemeMenuItem.textProperty().bind(RESOURCE_FACTORY.getStringBinding("defaultThemeMenuItem"));
@@ -163,8 +162,6 @@ public class Parcial2Controller implements Initializable{
     public void changeLanguage(ActionEvent actionEvent) {
         if(actionEvent.getSource()==spanishMenuItem)
             prefs.put("DEFAULT_LANGUAGE","es");
-        else if(actionEvent.getSource()==englishMenuItem)
-            prefs.put("DEFAULT_LANGUAGE","en");
 
         updateLanguage();
 

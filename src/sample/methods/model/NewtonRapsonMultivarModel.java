@@ -1,9 +1,9 @@
 package sample.methods.model;
 
 public class NewtonRapsonMultivarModel {
-    String no, x, y, f1, f2, df1x, df1y, df2x, df2y, deltaX, deltaY, eX, eY;
+    String no, x, y, f1, f2, df1x, df1y, df2x, df2y, deltaX, deltaY, ex, ey;
 
-    public NewtonRapsonMultivarModel(String no, String x, String y, String f1, String f2, String df1x, String df1y, String df2x, String df2y, String deltaX, String deltaY, String eX, String eY) {
+    public NewtonRapsonMultivarModel(String no, String x, String y, String f1, String f2, String df1x, String df1y, String df2x, String df2y, String deltaX, String deltaY, String ex, String ey) {
         this.no = no;
         this.x = x;
         this.y = y;
@@ -15,8 +15,8 @@ public class NewtonRapsonMultivarModel {
         this.df2y = df2y;
         this.deltaX = deltaX;
         this.deltaY = deltaY;
-        this.eX = eX;
-        this.eY = eY;
+        this.ex = ex;
+        this.ey = ey;
     }
 
     public String getNo() {
@@ -107,19 +107,19 @@ public class NewtonRapsonMultivarModel {
         this.deltaY = deltaY;
     }
 
-    public String geteX() {
-        return eX;
+    public String getEx() {
+        return ex;
     }
 
-    public void seteX(String eX) {
-        this.eX = eX;
+    public void setEx(String ex) {
+        this.ex = ex;
     }
 
-    public String geteY() {
-        return eY;
+    public String getEy() {
+        return ey;
     }
 
-    public void seteY(String eY) {
-        this.eY = eY;
+    public void setEy(String ey) {
+        this.ey = ey;
     }
 }

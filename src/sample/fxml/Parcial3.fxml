@@ -36,11 +36,10 @@
             <Menu fx:id="problemMenu" text="TiposDeProblemas">
                 <MenuItem text="Parcial 1" onAction="#changeWindow" fx:id="problem1MenuItem"/>
                 <MenuItem text="Parcial 2" onAction="#changeWindow" fx:id="problem2MenuItem"/>
+                <MenuItem text="Aproximación funcional" onAction="#changeWindow" fx:id="problem3MenuItem"/>
             </Menu>
             <Menu fx:id="languageMenu" text="Language">
-                <MenuItem text="English" onAction="#changeLanguage" fx:id="englishMenuItem"/>
                 <MenuItem text="Spanish" onAction="#changeLanguage" fx:id="spanishMenuItem"/>
-                <MenuItem text="Aproximación funcional" onAction="#changeWindow" fx:id="problem3MenuItem"/>
             </Menu>
             <Menu fx:id="styleMenu" text="Language">
                 <MenuItem text="English" onAction="#changeStyle" fx:id="defaultThemeMenuItem"/>

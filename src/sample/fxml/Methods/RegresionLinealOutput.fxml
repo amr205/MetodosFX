@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.controller.methods.RegresionLinealOutputController"
+            AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+            >
+
+
+        <HBox AnchorPane.rightAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.topAnchor="5" AnchorPane.bottomAnchor="10" >
+            <TableView  fx:id="table1" HBox.hgrow="ALWAYS" prefWidth="800">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+                <columns>
+                    <TableColumn  text="x">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="x" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn text="y">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="y" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn text="xy">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="xy" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn text="x²">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="x2" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                </columns>
+            </TableView>
+            <TableView  fx:id="table2" HBox.hgrow="SOMETIMES" prefWidth="400">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+
+                <columns>
+                    <TableColumn text="(y-Y)²" >
+                        <cellValueFactory>
+                            <PropertyValueFactory property="st" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn text="(y-a⁰-a¹x)²">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="sr" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+
+            </TableView>
+        </HBox>
+
+</AnchorPane>

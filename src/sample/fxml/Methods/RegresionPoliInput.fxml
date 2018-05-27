@@ -10,7 +10,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="sample.controller.methods.RegresionLinealInputController"
+      fx:controller="sample.controller.methods.RegresionPoliInputController"
       fx:id="mainPane">
 
     <VBox spacing="15" maxWidth="530">
@@ -24,7 +24,10 @@
         <VBox fx:id="dataVBox" spacing="7" minWidth="530">
 
         </VBox>
-
+        <HBox spacing="15">
+            <Label text="Grado= "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="gradoField"/>
+        </HBox>
 
         <Separator/>
         <HBox spacing="15">
@@ -36,10 +39,10 @@
         </HBox>
         <Separator/>
         <Label text="Resultados"/>
-        <HBox spacing="10">
+        <VBox spacing="10">
             <Label text="Ecuacion: "/>
-            <Label fx:id="equationLabel"/>
-        </HBox>
+            <Label fx:id="equationLabel" prefHeight="80" wrapText="true"/>
+        </VBox>
         <HBox spacing="10">
             <Label text="R= "/>
             <Label fx:id="rLabel"/>

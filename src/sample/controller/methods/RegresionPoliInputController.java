@@ -9,24 +9,24 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import sample.methods2.RegresionLineal;
+import sample.methods2.RegresionPoli;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
-public class RegresionLinealInputController implements Initializable {
+public class RegresionPoliInputController implements Initializable {
     ArrayList<TextField> xList = new ArrayList<TextField>();
     ArrayList<TextField> yList = new ArrayList<TextField>();
 
-    RegresionLineal regresionLineal;
+    RegresionPoli regresionPoli;
 
 
     @FXML
     VBox dataVBox;
 
     @FXML
-    TextField xValue;
+    TextField xValue, gradoField;
 
     @FXML
     Label equationLabel, rLabel, yLabel;
@@ -37,9 +37,11 @@ public class RegresionLinealInputController implements Initializable {
     public void evaluate() {
 
         boolean input=true;
-        float[] x = new float[xList.size()];
-        float[] y = new float[yList.size()];
-        float X=0;
+        double[] x = new double[xList.size()];
+        double[] y = new double[yList.size()];
+        int grado=0;
+
+        double X=0.0;
 
         try {
 
@@ -52,14 +54,17 @@ public class RegresionLinealInputController implements Initializable {
                 y[i]=Float.parseFloat(yList.get(i).getText());
             }
 
-            X = Float.parseFloat(xValue.getText());
+            grado = Integer.parseInt(gradoField.getText());
+
+            X = Double.parseDouble(xValue.getText());
 
         }catch (Exception e){
             input=false;
         }
 
         if (input){
-            regresionLineal.solve(x,y,x.length,X);
+            regresionPoli.setData(x,y,x.length,grado,X);
+            regresionPoli.solve();
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -93,13 +98,13 @@ public class RegresionLinealInputController implements Initializable {
             dataVBox.getChildren().remove(dataVBox.getChildren().size()-1);
 
         if(xList.size()>=1)
-           xList.remove(xList.size()-1);
+            xList.remove(xList.size()-1);
         if(yList.size()>=1)
             yList.remove(yList.size()-1);
     }
 
-    public void setRegresionLineal(RegresionLineal regresionLineal) {
-        this.regresionLineal = regresionLineal;
+    public void setRegresionPoli(RegresionPoli regresionPoli) {
+        this.regresionPoli = regresionPoli;
     }
 
     public void setR(String r){
@@ -114,11 +119,8 @@ public class RegresionLinealInputController implements Initializable {
         yLabel.setText(r);
     }
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addRow();
     }
-
 }

@@ -33,7 +33,7 @@ public class JacobiInputController implements Initializable{
     AnchorPane bottomPane, mainPane;
 
     @FXML
-    TextField numberField;
+    TextField numberField, errorField;
 
     private final Preferences prefs = Preferences.userNodeForPackage(Main.class);
     private String RESOURCE_NAME;
@@ -162,7 +162,8 @@ public class JacobiInputController implements Initializable{
             }
             try {
                 //tratar de obtener una solución mediante el método actual
-                jacobi.solve(equationsCoeficients, equationsEqualities);
+                double error = Double.parseDouble(errorField.getText());
+                jacobi.solve(equationsCoeficients, equationsEqualities, error);
             }catch (Exception e){
 
             }
