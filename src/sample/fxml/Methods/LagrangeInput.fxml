@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="sample.controller.methods.LagrangeInputController"
+      fx:id="mainPane">
+
+    <VBox spacing="15" maxWidth="530">
+        <HBox spacing="15" >
+            <Button text="-" onMouseClicked="#removeRow"/>
+            <Button text="+" onMouseClicked="#addRow"/>
+        </HBox>
+        <padding>
+            <Insets topRightBottomLeft="10"/>
+        </padding>
+        <VBox fx:id="dataVBox" spacing="7" minWidth="530">
+
+        </VBox>
+
+
+        <Separator/>
+        <HBox spacing="15">
+            <Label text="Evaluar funcion x= "/>
+            <TextField HBox.hgrow="ALWAYS" fx:id="xValue"/>
+        </HBox>
+        <HBox spacing="15" alignment="CENTER_RIGHT">
+            <Button text="Evaluar" onMouseClicked="#evaluate"/>
+        </HBox>
+        <Separator/>
+        <Label text="Resultados"/>
+
+        <HBox spacing="10">
+            <Label text="Y= "/>
+            <Label fx:id="yLabel"/>
+        </HBox>
+    </VBox>
+
+</VBox>
+

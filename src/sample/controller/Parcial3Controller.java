@@ -57,6 +57,8 @@ public class Parcial3Controller implements Initializable{
     private RegresionLineal regresionLineal;
     private RegresionPoli regresionPoli;
     private InterpolacionN interpolacionN;
+    private RegresionMulti regresionMulti;
+    private Lagrange lagrange;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,6 +79,8 @@ public class Parcial3Controller implements Initializable{
         regresionLineal = new RegresionLineal(RESOURCE_FACTORY);
         regresionPoli = new RegresionPoli(RESOURCE_FACTORY);
         interpolacionN = new InterpolacionN(RESOURCE_FACTORY);
+        regresionMulti = new RegresionMulti(RESOURCE_FACTORY);
+        lagrange=new Lagrange(RESOURCE_FACTORY);
 
         reset();
 
@@ -223,7 +227,9 @@ public class Parcial3Controller implements Initializable{
                 FXCollections.observableArrayList(
                         regresionLineal,
                         regresionPoli,
-                        interpolacionN
+                        interpolacionN,
+                        regresionMulti,
+                        lagrange
                 );
 
         methodBox.setItems(options);
