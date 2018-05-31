@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
+//Clase encargada de manejar los datos de entrada de jacobi
+
 public class JacobiInputController implements Initializable{
 
     @FXML

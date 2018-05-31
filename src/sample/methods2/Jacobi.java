@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
+
 public class Jacobi extends ParentMethod{
     protected JacobiInputController inputController;
     protected JacobiOtputController outputController;
@@ -190,9 +193,9 @@ public class Jacobi extends ParentMethod{
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussDescription"));
+        info.setTitle("Jacobi");
+        info.setHeaderText("Descripción");
+        info.setContentText("La base del método consiste en construir una sucesión convergente definida iterativamente. El límite de esta sucesión es precisamente la solución del sistema. A efectos prácticos si el algoritmo se detiene después de un número finito de pasos se llega a una aproximación al valor de x de la solución del sistema.");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);
         info.show();

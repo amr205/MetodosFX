@@ -6,6 +6,8 @@ import sample.methods.model.NewtonRaphsonModel;
 import sample.methods.model.RegresionLinealModel1;
 import sample.methods.model.RegresionLinealModel2;
 
+//Clase encargada de manejar los datos de salida de regresión lineal
+
 public class RegresionLinealOutputController {
 
     @FXML

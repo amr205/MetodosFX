@@ -25,6 +25,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
+
 public class InterpolacionN extends ParentMethod{
     protected InterpolacionNInputController inputController;
 
@@ -67,9 +70,9 @@ public class InterpolacionN extends ParentMethod{
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussDescription"));
+        info.setTitle("Interpolación");
+        info.setHeaderText("Descripción");
+        info.setContentText("La interpolación es el método mediante el cual conociendo dos o más puntos y sus respectivos valores en y se puede predecir con cierto grado de precisión el valor que le correspondería a un número no contemplado dentro de los datos iníciales, la interpolación puede ser lineal, cuadrática o de orden n, de esto dependerá de cuantos valores de referencia se tenga, necesitándose mínimo dos para realizar la interpolación lineal de un tercer valor desconocido");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);
         info.show();

@@ -16,6 +16,8 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//clase encargada de mostrar los datos de salida del metodo de gauss
+
 public class GaussOtputController implements Initializable {
 
     @FXML

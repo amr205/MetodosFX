@@ -23,6 +23,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
+
 public class Lagrange extends ParentMethod{
     protected LagrangeInputController inputController;
 
@@ -68,9 +71,9 @@ public class Lagrange extends ParentMethod{
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussDescription"));
+        info.setTitle("Lagrange");
+        info.setHeaderText("Descripción");
+        info.setContentText("En la interpolación de Lagrange se busca una función polinomica que permita representar el comportamiento de un conjunto de puntos y sus valores correspondientes de forma que se pueda predecir el valor de un punto nuevo del cual se desconozca el resultado, similar a la interpolación ese método da un polinomio de cuantos términos como n+1 datos se tengan inicialmente");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);
         info.show();

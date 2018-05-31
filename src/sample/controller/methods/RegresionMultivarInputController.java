@@ -18,6 +18,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+//Clase encargada de manejar los datos de entrada de regresión multivariable
+
 public class RegresionMultivarInputController implements Initializable {
     ArrayList<TextField> yList = new ArrayList<TextField>();
     ArrayList<TextField> x0List = new ArrayList<TextField>();

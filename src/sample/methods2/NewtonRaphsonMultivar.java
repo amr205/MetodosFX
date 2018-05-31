@@ -21,6 +21,9 @@ import sample.methods.model.SecanteModel;
 
 import java.math.BigDecimal;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
+
 public class NewtonRaphsonMultivar extends ParentMethod{
     protected NewtonRMInputController inputController;
     protected NewtonRaphsonMultivarController outputController;
@@ -237,9 +240,9 @@ public class NewtonRaphsonMultivar extends ParentMethod{
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussDescription"));
+        info.setTitle("Newton Raphson Multivariable");
+        info.setHeaderText("Descripción");
+        info.setContentText("Este método esta basado en la versión del newton raphson para  una sola ecuación, en este caso se requieren dos ecuaciones no lineales, y sus derivadas respecto a x e y, de esta forma y mediante la evaluación sucesiva en estas derivadas con cada iteración, se puede aproximar a la solución del sistema");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);
         info.show();

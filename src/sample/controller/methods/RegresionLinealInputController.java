@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//Clase encargada de manejar los datos de entrada de regresión
+
 public class RegresionLinealInputController implements Initializable {
     ArrayList<TextField> xList = new ArrayList<TextField>();
     ArrayList<TextField> yList = new ArrayList<TextField>();

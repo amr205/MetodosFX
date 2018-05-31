@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//Clase encargada de manejar los datos de salida de jacobi
+
 public class JacobiOtputController implements Initializable{
     @FXML
     TableView<List<String>> table;

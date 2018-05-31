@@ -10,6 +10,7 @@ import sample.Utilities.DrawView;
 import sample.Utilities.ObservableResourceFactory;
 import sample.methods2.NewtonRaphsonMultivar;
 
+//Clase encargada de manejar los datos de entrada de Newton Raphson multivariable
 
 public class NewtonRMInputController {
 

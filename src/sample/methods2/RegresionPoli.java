@@ -145,9 +145,9 @@ public class RegresionPoli extends ParentMethod{
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussDescription"));
+        info.setTitle("Regresión polinomial");
+        info.setHeaderText("Descripción");
+        info.setContentText("En determinadas ocasiones no se pueden ajustar los datos a un modelo lineal de forma correcta, por lo que es necesario la creación de una ecuación no lineal polinomial con la cual se pueden ajustar de una mejor forma los datos mientras mayor sea su grado, cabe resaltar que al termino del método es necesario resolver un sistema de ecuaciones por el método de Gauss o Gauss Jordan");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);
         info.show();

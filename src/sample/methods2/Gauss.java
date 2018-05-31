@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
 public class Gauss extends ParentMethod{
     protected GaussInputController inputController;
     protected GaussOtputController outputController;

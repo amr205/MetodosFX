@@ -18,6 +18,8 @@ import sample.methods.model.NewtonRapsonMultivarModel;
 import sample.methods.model.RegresionLinealModel1;
 import sample.methods.model.RegresionLinealModel2;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
 public class RegresionLineal extends ParentMethod{
     protected RegresionLinealInputController inputController;
     protected RegresionLinealOutputController outputController;
@@ -134,9 +136,9 @@ public class RegresionLineal extends ParentMethod{
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(RESOURCE_FACTORY.getResources().getString("descTitle"));
-        info.setHeaderText(RESOURCE_FACTORY.getResources().getString("descGaussHeader"));
-        info.setContentText(RESOURCE_FACTORY.getResources().getString("descGaussDescription"));
+        info.setTitle("Regresion lineal");
+        info.setHeaderText("Descripción");
+        info.setContentText("En este método, se toman en cuenta todos los datos, y mediante el uso de la formula especifica se logran ajustar dichos datos a una función, en este caso lineal, función con la cual se pueden predecir datos con los que originalmente no contábamos");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         info.getDialogPane().setPrefWidth(650);
         info.show();

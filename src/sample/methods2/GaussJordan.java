@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import sample.Utilities.ObservableResourceFactory;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
 public class GaussJordan extends Gauss{
     public GaussJordan(ObservableResourceFactory RESOURCE_FACTORY) {
         super(RESOURCE_FACTORY);

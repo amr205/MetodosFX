@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+//Clase encargada de manejar los datos de entrada de Lagrange
+
 public class LagrangeInputController implements Initializable {
     ArrayList<TextField> xList = new ArrayList<TextField>();
     ArrayList<TextField> yList = new ArrayList<TextField>();

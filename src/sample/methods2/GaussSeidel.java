@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//se encarga de realizar el método y mostrar la información en pantalla
+
+
 public class GaussSeidel extends Jacobi {
 
 
@@ -72,6 +75,17 @@ public class GaussSeidel extends Jacobi {
         return xn;
     }
 
+    @Override
+    public void showInfo() {
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Gauss Seidel");
+        info.setHeaderText("Descripción");
+        info.setContentText("Similar al método de Jacobi solo que en este se toma en cuanta el resultado inmediatamente que se calculo para las demás iteraciones\n" +
+                "Aunque este método puede aplicarse a cualquier sistema de ecuaciones lineales que produzca una matriz (cuadrada, naturalmente pues para que exista solución única, el sistema debe tener tantas ecuaciones como incógnitas) de coeficientes con los elementos de su diagonal no-nulos, la convergencia del método solo se garantiza si la matriz es diagonalmente dominante o si es simétrica y, a la vez, definida positiva.");
+        info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        info.getDialogPane().setPrefWidth(650);
+        info.show();
+    }
 
     @Override
     public String toString() {

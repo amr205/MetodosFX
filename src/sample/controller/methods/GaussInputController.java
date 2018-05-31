@@ -20,6 +20,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
+//Clase encargada de manejar todos los campos de entrada para el metodo de gauss
+
 public class GaussInputController implements Initializable{
 
     @FXML

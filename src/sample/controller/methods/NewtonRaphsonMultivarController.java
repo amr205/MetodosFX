@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//Clase encargada de manejar los datos de salida de newton raphson multivar
+
 public class NewtonRaphsonMultivarController {
     @FXML
     TableView<NewtonRapsonMultivarModel> table;
