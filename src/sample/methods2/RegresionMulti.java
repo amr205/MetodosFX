@@ -214,7 +214,7 @@ public class RegresionMulti extends ParentMethod {
     @Override
     public void showInfo() {
         Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle("Regresión lineal múltiple");
+        info.setTitle("Regresión multivariable");
         info.setHeaderText("Descripción");
         info.setContentText("En ocasiones el valor de y depende de diversos factores o diversas variables independientes, para estos casos se debe ajustar un modelo que contenga términos de cada una de estas variables de forma que se pueda predecir acertadamente un valor de y en respuesta al valor de dos o mas x distintas");
         info.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
